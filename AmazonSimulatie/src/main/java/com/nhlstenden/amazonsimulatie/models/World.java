@@ -36,6 +36,7 @@ public class World implements Model {
         this.worldObjects.add(new Robot());
         this.worldObjects.add(new Stellage());
         this.worldObjects.add(new Warehouse());
+        this.worldObjects.add(new Truck());
     }
 
     /*

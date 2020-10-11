@@ -42,10 +42,10 @@
                 renderer.setSize(window.innerWidth, window.innerHeight + 5);
                 document.body.appendChild(renderer.domElement);
 
-                camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-                cameraControls = new OrbitControls(camera, renderer.domElement);              
+
+                camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);                cameraControls = new OrbitControls(camera, renderer.domElement);              
                 camera.position.z = 15;
-                camera.position.y = 5;
+                camera.position.y = 50;
                 camera.position.x = 15;
                 cameraControls.update();
 
@@ -55,8 +55,8 @@
                 var material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
                 var plane = new THREE.Mesh(geometry, material);
                 plane.rotation.x = Math.PI / 2.0;
-                plane.position.x = 15;
-                plane.position.z = 15;
+                plane.position.x = 20;
+                plane.position.z = 20;
                 scene.add(plane);
 
                 var hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820, 4);
@@ -129,7 +129,7 @@
                             });
                         
                         }
-                            if (command.parameters.type == "warehouse") {
+                        if (command.parameters.type == "warehouse") {
                             worldObjects[command.parameters.uuid] = null;
                             gltfLoader.load('./gltf/warehouse.glb', function ( gltf ) {
                                 let warehouse = gltf.scene; 
@@ -139,8 +139,21 @@
                                 scene.add(group);
                                 worldObjects[command.parameters.uuid] = group;
                             });
-                          }
-                        
+                        }
+                        if (command.parameters.type == "truck") {
+                            worldObjects[command.parameters.uuid] = null;
+                            gltfLoader.load('./gltf/Truck.glb', function ( gltf ) {
+                                let truck = gltf.scene; 
+                                truck.scale.x = 100;
+                                truck.scale.y = 100;
+                                truck.scale.z = 100;
+                                let group = new THREE.Group();
+                                group.add(truck); 
+
+                                scene.add(group);
+                                worldObjects[command.parameters.uuid] = group;
+                            });
+                        }                        
                     }
 
                     /*
