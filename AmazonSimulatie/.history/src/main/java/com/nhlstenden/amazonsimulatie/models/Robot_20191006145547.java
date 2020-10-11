@@ -37,14 +37,11 @@ class Robot implements Object3D, Updatable {
      */
     @Override
     public boolean update() {
-
-        findPath(AStarNode startNode, AStarNode goalNode); 
-        
-        // if(x < 15) {
-        //     this.x += 0.5;
-        // } else {
-        //     this.z += 0.5;
-        // }
+        if(x < 15) {
+            this.x += 0.5;
+        } else {
+            this.z += 0.5;
+        }
         
         return true;
     }
