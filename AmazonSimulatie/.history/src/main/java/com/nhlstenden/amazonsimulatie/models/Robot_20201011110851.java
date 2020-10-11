@@ -18,6 +18,48 @@ class Robot implements Object3D, Updatable {
     private double rotationY = 0;
     private double rotationZ = 0;
 
+    int cols = 9;
+    int rows = 4; 
+
+    int[] openset = new int[cols*rows]; 
+    int[] closedset = new int[cols*rows]; 
+    int start;
+    int end; 
+
+
+    //deze functie geeft f(de kortste route), g(de afgelegde afstand) en h(de nog af te leggen afstand) een variabele
+    public int Spot(i,j) {
+        this.x = i;
+        this.y = j; 
+
+        this.f = 0;
+        this.g = 0;
+        this.h = 0; 
+        } 
+    }
+
+    //de aanmaak van een tweedimensionale array als grid
+    int[][] grid = new int[cols][rows]; 
+    
+    //voor elk punt in de array wordt er een punt aangemaakt
+    for(int i = 0; i < cols; i++){
+        for(int j = 0; j < rows; j++){
+            grid[i][j] = new Spot(i,j); 
+        }
+    }
+
+    start = grid[9][0];
+    end = grid[2][4]; 
+
+    openset.push(start); 
+
+    while(openset.Length > 0){
+
+    }
+    else{
+        //geen oplossing mogelijk
+    }
+
     public Robot() {
         this.uuid = UUID.randomUUID();
     }
@@ -37,14 +79,11 @@ class Robot implements Object3D, Updatable {
      */
     @Override
     public boolean update() {
-
-        findPath(AStarNode startNode, AStarNode goalNode); 
-        
-        // if(x < 15) {
-        //     this.x += 0.5;
-        // } else {
-        //     this.z += 0.5;
-        // }
+        if(x < 15) {
+            this.x += 0.5;
+        } else {
+            this.z += 0.5;
+        }
         
         return true;
     }
