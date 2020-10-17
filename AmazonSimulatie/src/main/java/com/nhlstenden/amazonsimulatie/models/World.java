@@ -35,7 +35,11 @@ public class World implements Model {
         this.worldObjects = new ArrayList<>();
         this.worldObjects.add(new Robot());
         this.worldObjects.add(new Stellage());
+<<<<<<< Updated upstream
         this.worldObjects.add(new Warehouse());
+=======
+        this.worldObjects.add(new Warehouse());        
+>>>>>>> Stashed changes
         this.worldObjects.add(new Truck());
     }
 

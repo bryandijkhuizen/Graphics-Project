@@ -1,19 +1,31 @@
 package com.nhlstenden.amazonsimulatie.models;
 
 import java.util.UUID;
+<<<<<<< Updated upstream
 import java.util.concurrent.DelayQueue;
 
 /*
  * Deze class stelt een truck voor. Hij impelementeerd de class Object3D, omdat het ook een
+=======
+
+/*
+ * Deze class stelt een robot voor. Hij impelementeerd de class Object3D, omdat het ook een
+>>>>>>> Stashed changes
  * 3D object is. Ook implementeerd deze class de interface Updatable. Dit is omdat
  * een robot geupdate kan worden binnen de 3D wereld om zich zo voort te bewegen.
  */
 class Truck implements Object3D, Updatable {
     private UUID uuid;
 
+<<<<<<< Updated upstream
     private double x = 116;  
     private double y = -2.1; //hoog / laag
     private double z = 150.25;
+=======
+    private double x = 0;
+    private double y = 0;
+    private double z = 0;
+>>>>>>> Stashed changes
 
     private double rotationX = 0;
     private double rotationY = 0;
@@ -37,6 +49,7 @@ class Truck implements Object3D, Updatable {
      * in de view)
      */
     @Override
+<<<<<<< Updated upstream
     public boolean update() {
         if (this.z > -50) { this.z -= 2;}
         
@@ -45,6 +58,9 @@ class Truck implements Object3D, Updatable {
         //this.x = 62;
         //this.y = -2.1;
         //this.z = 15.25;
+=======
+    public boolean update() {        
+>>>>>>> Stashed changes
         return true;
     }
 
