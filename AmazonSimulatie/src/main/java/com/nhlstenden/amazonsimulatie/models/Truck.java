@@ -1,31 +1,16 @@
 package com.nhlstenden.amazonsimulatie.models;
-
 import java.util.UUID;
-<<<<<<< Updated upstream
-import java.util.concurrent.DelayQueue;
 
 /*
  * Deze class stelt een truck voor. Hij impelementeerd de class Object3D, omdat het ook een
-=======
-
-/*
- * Deze class stelt een robot voor. Hij impelementeerd de class Object3D, omdat het ook een
->>>>>>> Stashed changes
  * 3D object is. Ook implementeerd deze class de interface Updatable. Dit is omdat
  * een robot geupdate kan worden binnen de 3D wereld om zich zo voort te bewegen.
  */
 class Truck implements Object3D, Updatable {
     private UUID uuid;
-
-<<<<<<< Updated upstream
     private double x = 116;  
     private double y = -2.1; //hoog / laag
     private double z = 150.25;
-=======
-    private double x = 0;
-    private double y = 0;
-    private double z = 0;
->>>>>>> Stashed changes
 
     private double rotationX = 0;
     private double rotationY = 0;
@@ -49,64 +34,31 @@ class Truck implements Object3D, Updatable {
      * in de view)
      */
     @Override
-<<<<<<< Updated upstream
-    public boolean update() {
-        if (this.z > -50) { this.z -= 2;}
-        
-        
-        //eind locatie aandocken
-        //this.x = 62;
-        //this.y = -2.1;
-        //this.z = 15.25;
-=======
-    public boolean update() {        
->>>>>>> Stashed changes
+    public boolean update() {    
+        /*eind locatie aandocken
+        this.x = 62;
+        this.y = -2.1;
+        this.z = 15.25;*/
         return true;
     }
 
     @Override
-    public String getUUID() {
-        return this.uuid.toString();
-    }
+    public String getUUID() { return this.uuid.toString(); }
 
+    //Dit onderdeel wordt gebruikt om het type van dit object als stringwaarde terug te kunnen geven. Het moet een stringwaarde zijn omdat deze informatie nodig 
+    //is op de client, en die verstuurd moet kunnen worden naar de browser. In de javascript code wordt dit dan weer verder afgehandeld.
     @Override
-    public String getType() {
-        /*
-         * Dit onderdeel wordt gebruikt om het type van dit object als stringwaarde terug
-         * te kunnen geven. Het moet een stringwaarde zijn omdat deze informatie nodig
-         * is op de client, en die verstuurd moet kunnen worden naar de browser. In de
-         * javascript code wordt dit dan weer verder afgehandeld.
-         */
-        return Truck.class.getSimpleName().toLowerCase();
-    }
-
+    public String getType() { return Robot.class.getSimpleName().toLowerCase(); }
     @Override
-    public double getX() {
-        return this.x;
-    }
-
+    public double getX() { return this.x; }
     @Override
-    public double getY() {
-        return this.y;
-    }
-
+    public double getY() { return this.y; }
     @Override
-    public double getZ() {
-        return this.z;
-    }
-
+    public double getZ() { return this.z; }
     @Override
-    public double getRotationX() {
-        return this.rotationX;
-    }
-
+    public double getRotationX() { return this.rotationX; }
     @Override
-    public double getRotationY() {
-        return this.rotationY;
-    }
-
+    public double getRotationY() { return this.rotationY; }
     @Override
-    public double getRotationZ() {
-        return this.rotationZ;
-    }
+    public double getRotationZ() { return this.rotationZ; }
 }
