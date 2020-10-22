@@ -96,7 +96,7 @@
                     if (Object.keys(worldObjects).indexOf(command.parameters.uuid) < 0) {
                         //Wanneer het object een robot is, wordt de code hieronder uitgevoerd.
                         if (command.parameters.type == "robot") {
-                          var geometry = new THREE.BoxGeometry(0.9, 0.3, 0.9);
+                            var geometry = new THREE.BoxGeometry(0.9, 0.3, 0.9);
                             var cubeMaterials = [
                                 new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //LEFT
                                 new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //RIGHT
@@ -172,6 +172,7 @@
                     object.rotation.z = command.parameters.rotationZ;
                 }
             }
+            var object = worldObjects[command.parameters.uuid];
 
         init();
         animate();

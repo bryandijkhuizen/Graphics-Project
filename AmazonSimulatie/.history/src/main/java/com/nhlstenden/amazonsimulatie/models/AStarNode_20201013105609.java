@@ -1,6 +1,7 @@
 package com.nhlstenden.amazonsimulatie.models;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
   The AStarNode class, along with the AStarSearch class,
@@ -49,5 +50,25 @@ public abstract class AStarNode implements Comparable {
     Gets the children (AKA "neighbors" or "adjacent nodes")
     of this node.
   */
-  public abstract List getNeighbors();
+  public List getNeighbors(AStarNode node){
+
+    List<AStarNode> neighbors = new ArrayList<AStarNode>(); 
+    int[][] units = new int[9][4]];
+    //de i en j staan voor de x en y van de node
+    int i,j;
+    if(i < 9-1){
+        neighbors.push(node[i+1,j]);
+    }
+    if(i < 0){
+        neighbors.push(node[i-1,j]);
+   }
+    if(j > 4-1){
+        neighbors.push(node[i,j+1]);
+    }
+    if(j > 0){
+        neighbors.push(node[i,j-1]);
+    }
+    
+    return neighbors; 
+  }
 }  

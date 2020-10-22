@@ -54,8 +54,7 @@ public class AStarSearch{
     LinkedList closedList = new LinkedList();
 
     startNode.costFromStart = 0;
-    startNode.estimatedCostToGoal =
-      startNode.getEstimatedCost(goalNode);
+    startNode.estimatedCostToGoal = startNode.getEstimatedCost(goalNode);
     startNode.pathParent = null;
     openList.add(startNode);
 
@@ -68,7 +67,7 @@ public class AStarSearch{
         return constructPath(goalNode);
       }
       //de naastgelegen nodes worden opgevraagd
-      List neighbors = node.getNeighbors();
+      List neighbors = node.getNeighbors(node);
       for (int i=0; i<neighbors.size(); i++) {
         AStarNode neighborNode = (AStarNode)neighbors.get(i);
         boolean isOpen = openList.contains(neighborNode);
