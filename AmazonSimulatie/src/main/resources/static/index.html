@@ -49,7 +49,7 @@
 
                 window.addEventListener('resize', onWindowResize, false);
 
-                var geometry = new THREE.PlaneGeometry(1, 1, 1);
+                var geometry = new THREE.PlaneGeometry(60, 50, 1);
                 var material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
                 var plane = new THREE.Mesh(geometry, material);
                 plane.rotation.x = Math.PI / 2.0;

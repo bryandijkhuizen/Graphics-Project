@@ -18,7 +18,11 @@ class Robot implements Object3D, Updatable {
 
     private double rotationX = 0;
     private double rotationY = 0;
-    private double rotationZ = 0; 
+    private double rotationZ = 0;
+
+    public String CurrentPos; 
+    private LinkedList<Vertice> target; 
+    private LinkedList<Vertice> pad; 
 
     public Robot() {
         this.uuid = UUID.randomUUID();
@@ -39,10 +43,6 @@ class Robot implements Object3D, Updatable {
      */
     @Override
     public boolean update() {
-        String start; 
-        String p; 
-        p{start} = dataset; 
-        graphWeighted.DijkstraShortestPath(start, end);
         return true; 
     }
     //     if(target == null){

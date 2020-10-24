@@ -39,10 +39,10 @@ class Robot implements Object3D, Updatable {
      */
     @Override
     public boolean update() {
-        String start; 
-        String p; 
-        p{start} = dataset; 
-        graphWeighted.DijkstraShortestPath(start, end);
+        GraphWeighted graphWeighted = new GraphWeighted(true);
+        NodeWeighted zero = new NodeWeighted(0, "0");
+        NodeWeighted six = new NodeWeighted(6, "6");
+        graphWeighted.DijkstraShortestPath(zero, six);
         return true; 
     }
     //     if(target == null){
