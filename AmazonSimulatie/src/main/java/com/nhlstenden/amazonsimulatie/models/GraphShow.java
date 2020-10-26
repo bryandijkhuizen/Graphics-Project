@@ -24,7 +24,12 @@ public class GraphShow {
         NodeWeighted p5 = new NodeWeighted(51, "51");
         NodeWeighted p6 = new NodeWeighted(63, "63");
         
-        NodeWeighted[] punten = new NodeWeighted[]{ p0, p1, p2, p3, p4, p5, p5, p6}; 
+        NodeWeighted[] punten = new NodeWeighted[96];
+        NodeWeighted[] p = new NodeWeighted[96];
+        for (int i = 0; i < punten.length; i++) {
+            String lower = Integer.toString(i);
+            p[i]  = new NodeWeighted(i, lower.length() == 1 ? "0" + lower : lower);
+        }
 
         // Our addEdge method automatically adds Nodes as well.
         // The addNode method is only there for unconnected Nodes,
