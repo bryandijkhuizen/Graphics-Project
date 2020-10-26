@@ -1,11 +1,8 @@
-
 package com.nhlstenden.amazonsimulatie.models;
-
-import scala.jdk.Priority0FunctionExtensions;
 
 public class GraphShow {
 
-    public String GetRoute(int start, String end){
+    public String getRoute(int start, String end){
          //  90  91x 92x 93  94x 95x
         //  80  81  82  83  84  85
         //  70  71x 72x 73  74x 75x
@@ -18,7 +15,6 @@ public class GraphShow {
         //  00  01  02  03  04  05
 
         GraphWeighted graphWeighted = new GraphWeighted(true);
-        NodeWeighted hoi = graphWeighted[4];
         NodeWeighted p0 = new NodeWeighted(0, "0");
         NodeWeighted p1 = new NodeWeighted(1, "1");
         NodeWeighted p2 = new NodeWeighted(2, "2");
@@ -42,8 +38,8 @@ public class GraphShow {
         graphWeighted.addEdge(p5, p4, 1);
         graphWeighted.addEdge(p5, p6, 8);
 
-        start = "p" + start; 
-        end = "p" + end; 
-        return graphWeighted.DijkstraShortestPath(p0, p6); 
+        NodeWeighted startNodeWeighted = new NodeWeighted(start, "p");
+        NodeWeighted endNodeWeighted = new NodeWeighted(Integer. parseInt(end), "p");
+        return graphWeighted.dijkstraShortestPath(startNodeWeighted, endNodeWeighted); 
     }
 }

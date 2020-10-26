@@ -1,9 +1,6 @@
 package com.nhlstenden.amazonsimulatie.models;
-import java.util.List;
-import java.util.LinkedList;
 
 import java.util.UUID;
-
 /*
  * Deze class stelt een robot voor. Hij impelementeerd de class Object3D, omdat het ook een
  * 3D object is. Ook implementeerd deze class de interface Updatable. Dit is omdat
@@ -39,10 +36,7 @@ class Robot implements Object3D, Updatable {
      */
     @Override
     public boolean update() {
-        String start; 
-        String p; 
-        p{start} = dataset; 
-        graphWeighted.DijkstraShortestPath(start, end);
+        //GraphWeighted.dijkstraShortestPath();
         return true; 
     }
     //     if(target == null){
@@ -83,8 +77,6 @@ class Robot implements Object3D, Updatable {
     //         // Set current position.
     //         CurrentPos = CurrentRow.ToString() + CurrentColumn.ToString();
     //     }
-
-
 
     @Override
     public String getUUID() { return this.uuid.toString(); }
