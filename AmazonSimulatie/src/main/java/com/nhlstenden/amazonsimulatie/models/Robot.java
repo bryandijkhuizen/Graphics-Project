@@ -15,68 +15,58 @@ class Robot implements Object3D, Updatable {
 
     private double rotationX = 0;
     private double rotationY = 0;
-    private double rotationZ = 0; 
+    private double rotationZ = 0;
+    private boolean loopFinished = true; 
 
     public Robot() {
         this.uuid = UUID.randomUUID();
     }
 
     /*
-     * Deze update methode wordt door de World aangeroepen wanneer de
-     * World zelf geupdate wordt. Dit betekent dat elk object, ook deze
-     * robot, in de 3D wereld steeds een beetje tijd krijgt om een update
-     * uit te voeren. In de updatemethode hieronder schrijf je dus de code
-     * die de robot steeds uitvoert (bijvoorbeeld positieveranderingen). Wanneer
-     * de methode true teruggeeft (zoals in het voorbeeld), betekent dit dat
-     * er inderdaad iets veranderd is en dat deze nieuwe informatie naar de views
-     * moet worden gestuurd. Wordt false teruggegeven, dan betekent dit dat er niks
-     * is veranderd, en de informatie hoeft dus niet naar de views te worden gestuurd.
-     * (Omdat de informatie niet veranderd is, is deze dus ook nog steeds hetzelfde als
-     * in de view)
+     * Deze update methode wordt door de World aangeroepen wanneer de World zelf
+     * geupdate wordt. Dit betekent dat elk object, ook deze robot, in de 3D wereld
+     * steeds een beetje tijd krijgt om een update uit te voeren. In de
+     * updatemethode hieronder schrijf je dus de code die de robot steeds uitvoert
+     * (bijvoorbeeld positieveranderingen). Wanneer de methode true teruggeeft
+     * (zoals in het voorbeeld), betekent dit dat er inderdaad iets veranderd is en
+     * dat deze nieuwe informatie naar de views moet worden gestuurd. Wordt false
+     * teruggegeven, dan betekent dit dat er niks is veranderd, en de informatie
+     * hoeft dus niet naar de views te worden gestuurd. (Omdat de informatie niet
+     * veranderd is, is deze dus ook nog steeds hetzelfde als in de view)
      */
     @Override
     public boolean update() {
-        //GraphWeighted.dijkstraShortestPath();
+        int start = 1;
+        int end = 6;
+        if(loopFinished == true){
+            CallNewRoute(start, end);   
+        }
         return true; 
     }
-    //     if(target == null){
-    //         LinkedList<Vertice> path = DijkstraAlgorithm.getPath(target); 
-    //         if(!path.isEmpty()){
-    //             target = path.get(path.size() - 1); 
-    //             this.path.addAll(path);
-    //         }
-    //     }
-    //     target = //coordinaten van het pad
-    //     pad = getPath(Vertice target); //ik begrijp niet wat ik moet meegeven
-    //     for (int i = 0; i < pad.length; i++) 
-    //     { 
-    //         if(){
-    //             x += 25; 
-    //         }
-    //         //kijken of het omhoog, omlaag, naar links of rechts is. 
-    //         //coordinaten van de robot aanpassen
-    //     }
-    // }
 
-    // public void moveToTarget(Position target, Position current) {
-    //     double deltaX = target.getX() - current.getX();
-    //     double deltaY = target.getY() - current.getY();
+    public void CallNewRoute(int start, int end){
+        loopFinished = false;
+        String route = GraphShow.GetRoute(start, end);
 
-    //     up = deltaY < 0 && Math.abs(deltaY) > Position.PROXIMITY_RANGE;
-    //     right = deltaX > 0 && Math.abs(deltaX) > Position.PROXIMITY_RANGE;
-    //     down = deltaY > 0 && Math.abs(deltaY) > Position.PROXIMITY_RANGE;
-    //     left = deltaX < 0 && Math.abs(deltaX) > Position.PROXIMITY_RANGE;
-    // }
+        for (int i = 0; i < route.length(); i+=3) {
+            System.out.println(x);
+            System.out.println(z);
 
-    // private void setNewCurrentPosition()
-    //     {
-    //         // Get robot current row.
-    //         int CurrentRow = (int)Math.floor(this.z / 25);
-    //         // Get robot current column.
-    //         int CurrentColumn = (int)Math.floor(this.x / 25);
-    //         // Set current position.
-    //         CurrentPos = CurrentRow.ToString() + CurrentColumn.ToString();
-    //     }
+           this.x = (route.charAt(i)) - 48; 
+           this.z =  (route.charAt(i+1)) - 48;
+
+           update(); 
+
+           System.out.println(x);
+           System.out.println(z);
+
+           try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } 
+    }
+    }
 
     @Override
     public String getUUID() { return this.uuid.toString(); }

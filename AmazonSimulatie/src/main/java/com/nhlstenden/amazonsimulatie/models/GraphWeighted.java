@@ -31,10 +31,8 @@ public class GraphWeighted {
 
         // We're using addEdgeHelper to make sure we don't have duplicate edges
         addEdgeHelper(source, destination, weight);
-
-        if (!directed && source != destination) {
-            addEdgeHelper(destination, source, weight);
-        }
+        
+        if (!directed && source != destination) { addEdgeHelper(destination, source, weight); }
     }
 
     private void addEdgeHelper(NodeWeighted a, NodeWeighted b, double weight) {
@@ -52,22 +50,12 @@ public class GraphWeighted {
         a.edges.add(new EdgeWeighted(a, b, weight));
     }
 
-    public void printEdges() {
+    // Necessary call if we want to run the algorithm multiple times
+    public void resetNodesVisited() {
         for (NodeWeighted node : nodes) {
-            LinkedList<EdgeWeighted> edges = node.edges;
-
-            if (edges.isEmpty()) {
-                System.out.println("Node " + node.name + " has no edges.");
-                continue;
-            }
-            System.out.print("Node " + node.name + " has edges to: ");
-
-            for (EdgeWeighted edge : edges) {
-                System.out.print(edge.destination.name + "(" + edge.weight + ") ");
-            }
-            System.out.println();
+            node.unvisit();
         }
-    }
+    }        
 
     public boolean hasEdge(NodeWeighted source, NodeWeighted destination) {
         LinkedList<EdgeWeighted> edges = source.edges;
@@ -81,15 +69,7 @@ public class GraphWeighted {
         return false;
     }
 
-    // Necessary call if we want to run the algorithm multiple times
-    public void resetNodesVisited() {
-        for (NodeWeighted node : nodes) {
-            node.unvisit();
-        }
-    }
-
-
-    public String dijkstraShortestPath(NodeWeighted start, NodeWeighted end) {
+    public String DijkstraShortestPath(NodeWeighted start, NodeWeighted end) {
         for(NodeWeighted n : nodes) {
             System.out.println(n.name);
         }

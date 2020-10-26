@@ -49,13 +49,13 @@
 
                 window.addEventListener('resize', onWindowResize, false);
 
-                var geometry = new THREE.PlaneGeometry(60, 50, 1);
-                var material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
-                var plane = new THREE.Mesh(geometry, material);
-                plane.rotation.x = Math.PI / 2.0;
-                plane.position.x = 20;
-                plane.position.z = 20;
-                scene.add(plane);
+                // var geometry = new THREE.PlaneGeometry(60, 50, 1);
+                // var material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+                // var plane = new THREE.Mesh(geometry, material);
+                // plane.rotation.x = Math.PI / 2.0;
+                // plane.position.x = 20;
+                // plane.position.z = 20;
+                // scene.add(plane);
 
                 var hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820, 4);
                 hemiLight.intensity = 8; 
@@ -149,6 +149,7 @@
                                 truck.scale.x = 100;
                                 truck.scale.y = 100;
                                 truck.scale.z = 100;
+                                robot.position.y = 50;
                                 let group = new THREE.Group();
                                 group.add(truck); 
 

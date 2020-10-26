@@ -2,8 +2,8 @@ package com.nhlstenden.amazonsimulatie.models;
 
 public class GraphShow {
 
-    public String getRoute(int start, String end){
-         //  90  91x 92x 93  94x 95x
+    public static String GetRoute(int start, int end){
+        //  90  91x 92x 93  94x 95x
         //  80  81  82  83  84  85
         //  70  71x 72x 73  74x 75x
         //  60  61  62  63  64  65
@@ -15,13 +15,16 @@ public class GraphShow {
         //  00  01  02  03  04  05
 
         GraphWeighted graphWeighted = new GraphWeighted(true);
-        NodeWeighted p0 = new NodeWeighted(0, "0");
-        NodeWeighted p1 = new NodeWeighted(1, "1");
-        NodeWeighted p2 = new NodeWeighted(2, "2");
-        NodeWeighted p3 = new NodeWeighted(3, "3");
-        NodeWeighted p4 = new NodeWeighted(4, "4");
-        NodeWeighted p5 = new NodeWeighted(5, "5");
-        NodeWeighted p6 = new NodeWeighted(6, "6");
+
+        NodeWeighted p0 = new NodeWeighted(91, "91");
+        NodeWeighted p1 = new NodeWeighted(19, "19");
+        NodeWeighted p2 = new NodeWeighted(27, "27");
+        NodeWeighted p3 = new NodeWeighted(31, "31");
+        NodeWeighted p4 = new NodeWeighted(48, "48");
+        NodeWeighted p5 = new NodeWeighted(51, "51");
+        NodeWeighted p6 = new NodeWeighted(63, "63");
+        
+        NodeWeighted[] punten = new NodeWeighted[]{ p0, p1, p2, p3, p4, p5, p5, p6}; 
 
         // Our addEdge method automatically adds Nodes as well.
         // The addNode method is only there for unconnected Nodes,
@@ -38,8 +41,9 @@ public class GraphShow {
         graphWeighted.addEdge(p5, p4, 1);
         graphWeighted.addEdge(p5, p6, 8);
 
-        NodeWeighted startNodeWeighted = new NodeWeighted(start, "p");
-        NodeWeighted endNodeWeighted = new NodeWeighted(Integer. parseInt(end), "p");
-        return graphWeighted.dijkstraShortestPath(startNodeWeighted, endNodeWeighted); 
+        NodeWeighted s = punten[start];
+        NodeWeighted e = punten[end + 1];
+
+        return graphWeighted.DijkstraShortestPath(s, e); 
     }
 }
