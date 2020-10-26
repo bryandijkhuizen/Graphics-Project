@@ -39,18 +39,7 @@ class Stellage implements Object3D, Updatable {
      */
     @Override
     public boolean update() {
-        int start = 1;
-        int end = 6;
-        getX();
-        getZ(); 
-        if(loopFinished == true){
-            CallNewRoute(start, end);   
-        }
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } 
+        
         return true; 
     }
 
@@ -67,8 +56,8 @@ class Stellage implements Object3D, Updatable {
             System.out.println(x);
             System.out.println(z);
 
-            this.x = (xy[i] - 48) * 10;
-            this.z = (xy[i+1] - 48) * 10;
+            this.x = xy[i] - 48;
+            this.z = xy[i+1] - 48;
             update(); 
             System.out.println(x);
             System.out.println(z);
@@ -80,50 +69,22 @@ class Stellage implements Object3D, Updatable {
         }
         loopFinished = true;
     } 
-
+@Override
+    public String getUUID() { return this.uuid.toString(); }
+    //Dit onderdeel wordt gebruikt om het type van dit object als stringwaarde terug te kunnen geven. Het moet een stringwaarde zijn omdat deze informatie nodig 
+    //is op de client, en die verstuurd moet kunnen worden naar de browser. In de javascript code wordt dit dan weer verder afgehandeld.
     @Override
-    public String getUUID() {
-        return this.uuid.toString();
-    }
-
+    public String getType() { return Robot.class.getSimpleName().toLowerCase(); }
     @Override
-    public String getType() {
-        /*
-         * Dit onderdeel wordt gebruikt om het type van dit object als stringwaarde terug
-         * te kunnen geven. Het moet een stringwaarde zijn omdat deze informatie nodig
-         * is op de client, en die verstuurd moet kunnen worden naar de browser. In de
-         * javascript code wordt dit dan weer verder afgehandeld.
-         */
-        return Stellage.class.getSimpleName().toLowerCase();
-    }
-
+    public double getX() { return this.x; }
     @Override
-    public double getX() {
-        return this.x;
-    }
-
+    public double getY() { return this.y; }
     @Override
-    public double getY() {
-        return this.y;
-    }
-
+    public double getZ() { return this.z; }
     @Override
-    public double getZ() {
-        return this.z;
-    }
-
+    public double getRotationX() { return this.rotationX; }
     @Override
-    public double getRotationX() {
-        return this.rotationX;
-    }
-
+    public double getRotationY() { return this.rotationY; }
     @Override
-    public double getRotationY() {
-        return this.rotationY;
-    }
-
-    @Override
-    public double getRotationZ() {
-        return this.rotationZ;
-    }
+    public double getRotationZ() { return this.rotationZ; }
 }

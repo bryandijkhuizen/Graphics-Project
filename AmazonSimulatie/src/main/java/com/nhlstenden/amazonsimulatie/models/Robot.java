@@ -41,36 +41,36 @@ class Robot implements Object3D, Updatable {
         if(loopFinished == true){
             CallNewRoute(start, end);   
         }
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } 
         return true; 
     }
 
     public void CallNewRoute(int start, int end){
         loopFinished = false;
         String route = GraphShow.GetRoute(start, end);
-
-        for (int i = 0; i < route.length(); i+=3) {
-            System.out.println(x);
-            System.out.println(z);
-
-           this.x = (route.charAt(i)) - 48; 
-           this.z =  (route.charAt(i+1)) - 48;
-
-           update(); 
-
-           System.out.println(x);
-           System.out.println(z);
-
-           try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        char[] xy = new char[route.length()];
+        for (int i = 0; i < route.length(); i++) {
+            xy[i] = route.charAt(i);
         } 
+        //19 31 51 48 63
+        for (int i = 0; i < xy.length; i+=3) {
+            this.x = xy[i] - 48;
+            this.z = xy[i+1] - 48;
+            update();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } 
+        }
+        loopFinished = true;
     }
-    }
-
     @Override
     public String getUUID() { return this.uuid.toString(); }
-
     //Dit onderdeel wordt gebruikt om het type van dit object als stringwaarde terug te kunnen geven. Het moet een stringwaarde zijn omdat deze informatie nodig 
     //is op de client, en die verstuurd moet kunnen worden naar de browser. In de javascript code wordt dit dan weer verder afgehandeld.
     @Override
