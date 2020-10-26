@@ -8,9 +8,9 @@ import java.util.UUID;
  */
 class Truck implements Object3D, Updatable {
     private UUID uuid;
-    private double x = 116;  
+    private double x = 62;  
     private double y = -2.1;
-    private double z = 150.25;
+    private double z = 15.25;
 
     private double rotationX = 0;
     private double rotationY = 0;
@@ -35,9 +35,6 @@ class Truck implements Object3D, Updatable {
      */
     @Override
     public boolean update() {
-        this.x = 62;
-        this.y = -2.1;
-        this.z = 15.25;
         return true;
     }
 
