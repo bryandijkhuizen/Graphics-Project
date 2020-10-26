@@ -1,10 +1,6 @@
 package com.nhlstenden.amazonsimulatie.models;
 
-import java.util.List;
-import java.util.LinkedList;
-
 import java.util.UUID;
-
 /*
  * Deze class stelt een robot voor. Hij impelementeerd de class Object3D, omdat het ook een
  * 3D object is. Ook implementeerd deze class de interface Updatable. Dit is omdat

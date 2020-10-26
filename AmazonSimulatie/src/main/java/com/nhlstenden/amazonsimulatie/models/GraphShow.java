@@ -1,12 +1,9 @@
-
 package com.nhlstenden.amazonsimulatie.models;
-
-import scala.jdk.Priority0FunctionExtensions;
 
 public class GraphShow {
 
     public static String GetRoute(int start, int end){
-         //  90  91x 92x 93  94x 95x
+        //  90  91x 92x 93  94x 95x
         //  80  81  82  83  84  85
         //  70  71x 72x 73  74x 75x
         //  60  61  62  63  64  65
