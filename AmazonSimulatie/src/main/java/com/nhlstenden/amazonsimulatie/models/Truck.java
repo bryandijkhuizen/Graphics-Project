@@ -9,7 +9,7 @@ import java.util.UUID;
 class Truck implements Object3D, Updatable {
     private UUID uuid;
     private double x = 116;  
-    private double y = -2.1; //hoog / laag
+    private double y = -2.1;
     private double z = 150.25;
 
     private double rotationX = 0;
@@ -34,11 +34,10 @@ class Truck implements Object3D, Updatable {
      * in de view)
      */
     @Override
-    public boolean update() {    
-        /*eind locatie aandocken
+    public boolean update() {
         this.x = 62;
         this.y = -2.1;
-        this.z = 15.25;*/
+        this.z = 15.25;
         return true;
     }
 
@@ -48,7 +47,7 @@ class Truck implements Object3D, Updatable {
     //Dit onderdeel wordt gebruikt om het type van dit object als stringwaarde terug te kunnen geven. Het moet een stringwaarde zijn omdat deze informatie nodig 
     //is op de client, en die verstuurd moet kunnen worden naar de browser. In de javascript code wordt dit dan weer verder afgehandeld.
     @Override
-    public String getType() { return Robot.class.getSimpleName().toLowerCase(); }
+    public String getType() { return Truck.class.getSimpleName().toLowerCase(); }
     @Override
     public double getX() { return this.x; }
     @Override
