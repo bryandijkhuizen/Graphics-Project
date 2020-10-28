@@ -1,7 +1,5 @@
 package com.nhlstenden.amazonsimulatie.models;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 /*
@@ -20,7 +18,7 @@ class Warehouse implements Object3D, Updatable {
     private double rotationY = 0;
     private double rotationZ = 0;
 
-             //  90  91x 92x 93  94x 95x
+        //  90  91x 92x 93  94x 95x
         //  80  81  82  83  84  85
         //  70  71x 72x 73  74x 75x
         //  60  61  62  63  64  65
