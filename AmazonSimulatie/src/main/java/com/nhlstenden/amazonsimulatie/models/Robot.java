@@ -1,6 +1,10 @@
 package com.nhlstenden.amazonsimulatie.models;
 
+import java.util.List;
+import java.util.LinkedList;
+
 import java.util.UUID;
+
 /*
  * Deze class stelt een robot voor. Hij impelementeerd de class Object3D, omdat het ook een
  * 3D object is. Ook implementeerd deze class de interface Updatable. Dit is omdat
@@ -9,14 +13,24 @@ import java.util.UUID;
 class Robot implements Object3D, Updatable {
     private UUID uuid;
 
-    private double x = 0;
+    private double x = 80;
     private double y = 0;
-    private double z = 0;
+    private double z = 50;
 
     private double rotationX = 0;
     private double rotationY = 0;
     private double rotationZ = 0;
-    private boolean loopFinished = true; 
+    private Integer end; 
+    private char[] path; 
+    private int xIndex = 0;
+    private int zIndex = 1;
+    private Double targetX;
+    private Double targetZ;
+    private Stellage stellage; 
+    private String status = "idle";
+   
+    
+    
 
     public Robot() {
         this.uuid = UUID.randomUUID();
@@ -36,41 +50,61 @@ class Robot implements Object3D, Updatable {
      */
     @Override
     public boolean update() {
-        int start = 1;
-        int end = 6;
-        if(loopFinished == true){
-            CallNewRoute(start, end);   
-        }
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+        if(end != null){
+        if(path != null){
+            // if(targetX != null){
+
+            // }
+            // else{
+            //    this.targetX = (Double)((path[xIndex]) - 48) * 10;
+            // }
+            // if(targetZ != null){
+
+            // }
+            // else{
+                
+            // }
+            this.x = ((path[xIndex]) - 48) * 10;
+            this.z = ((path[zIndex]) -48) * 10;
+            if(stellage != null){
+                stellage.setX(this.x);
+                stellage.setZ(this.z);
+            }
+            if(!((zIndex + 3) > path.length)){
+                zIndex += 3;
+                xIndex += 3;  
+            }
         } 
+        else{
+            CallNewRoute((int)(this.x + this.z /10), end);
+        }
+        try{
+            Thread.sleep(500);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
         return true; 
     }
 
     public void CallNewRoute(int start, int end){
-        loopFinished = false;
         String route = GraphShow.GetRoute(start, end);
-        char[] xy = new char[route.length()];
+        path = new char[route.length()];
+
         for (int i = 0; i < route.length(); i++) {
-            xy[i] = route.charAt(i);
+            path[i] = route.charAt(i);
         } 
-        //19 31 51 48 63
-        for (int i = 0; i < xy.length; i+=3) {
-            this.x = xy[i] - 48;
-            this.z = xy[i+1] - 48;
-            update();
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } 
-        }
-        loopFinished = true;
     }
+
+    public void setEnd(Integer end) {
+        this.end = end;
+    }
+
     @Override
     public String getUUID() { return this.uuid.toString(); }
+
     //Dit onderdeel wordt gebruikt om het type van dit object als stringwaarde terug te kunnen geven. Het moet een stringwaarde zijn omdat deze informatie nodig 
     //is op de client, en die verstuurd moet kunnen worden naar de browser. In de javascript code wordt dit dan weer verder afgehandeld.
     @Override
@@ -87,4 +121,13 @@ class Robot implements Object3D, Updatable {
     public double getRotationY() { return this.rotationY; }
     @Override
     public double getRotationZ() { return this.rotationZ; }
+    
+    public void setStatus(String status){ this.status = status; }
+
+    public String getStatus() { return this.status; }
+
+    public void setStellage(Stellage stellage){ this.stellage = stellage; }
+
+    public Stellage getStellage() { return this.stellage; }
+
 }
