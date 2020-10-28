@@ -153,10 +153,12 @@
                             worldObjects[command.parameters.uuid] = null;
                             gltfLoader.load('./gltf/Truck.glb', function ( gltf ) {
                                 let truck = gltf.scene; 
-                                truck.scale.x = 100;
-                                truck.scale.y = 100;
-                                truck.scale.z = 100;
-                                truck.position.y = 50;
+                                truck.scale.x = 75;
+                                truck.scale.y = 75;
+                                truck.scale.z = 75;
+
+                                truck.position.y = 0;
+                                truck.position.x = -300;
                                 let group = new THREE.Group();
                                 group.add(truck); 
 
