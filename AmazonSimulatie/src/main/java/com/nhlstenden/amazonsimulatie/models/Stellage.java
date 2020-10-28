@@ -1,5 +1,9 @@
 package com.nhlstenden.amazonsimulatie.models;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
+
 import java.util.UUID;
 
 /*
@@ -10,7 +14,7 @@ import java.util.UUID;
 class Stellage implements Object3D, Updatable {
     private UUID uuid;
 
-    private double x = 1;
+    private double x = 0;
     private double y = 0;
     private double z = 0;
 
@@ -18,10 +22,25 @@ class Stellage implements Object3D, Updatable {
     private double rotationY = 0;
     private double rotationZ = 0;
 
+    private int startX, startZ; 
+
     private boolean loopFinished = true; 
 
     public Stellage() {
         this.uuid = UUID.randomUUID();
+        
+        String stellagePositions = World.availableStellagePositions;
+        char[] coordinate = new char[stellagePositions.length()];
+
+            for (int i = 0; i < stellagePositions.length(); i++) {
+                coordinate[i] = stellagePositions.charAt(i);
+            } 
+
+        if(coordinate.length > 0){ 
+            this.x = coordinate[0];
+            this.z = coordinate[1];
+            World.availableStellagePositions = World.availableStellagePositions.substring(3);
+        }
     }
 
     /*
@@ -39,47 +58,8 @@ class Stellage implements Object3D, Updatable {
      */
     @Override
     public boolean update() {
-        int start = 1;
-        int end = 6;
-        getX();
-        getZ(); 
-        if(loopFinished == true){
-            CallNewRoute(start, end);   
-        }
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } 
-        return true; 
+         return true; 
     }
-
-    public void CallNewRoute(int start, int end){
-        loopFinished = false;
-        String route = GraphShow.GetRoute(start, end);
-        char[] xy = new char[route.length()];
-
-        for (int i = 0; i < route.length(); i++) {
-            xy[i] = route.charAt(i);
-        } 
-        //19 31 51 48 63
-        for (int i = 0; i < xy.length; i+=3) {
-            System.out.println(x);
-            System.out.println(z);
-
-            this.x = (xy[i] - 48) * 10;
-            this.z = (xy[i+1] - 48) * 10;
-            update(); 
-            System.out.println(x);
-            System.out.println(z);
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } 
-        }
-        loopFinished = true;
-    } 
 
     @Override
     public String getUUID() {
@@ -95,6 +75,10 @@ class Stellage implements Object3D, Updatable {
          * javascript code wordt dit dan weer verder afgehandeld.
          */
         return Stellage.class.getSimpleName().toLowerCase();
+    }
+
+    public Integer getPosition(){
+        return (int)(x + (z/10)); 
     }
 
     @Override
@@ -125,5 +109,16 @@ class Stellage implements Object3D, Updatable {
     @Override
     public double getRotationZ() {
         return this.rotationZ;
+    }
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
     }
 }

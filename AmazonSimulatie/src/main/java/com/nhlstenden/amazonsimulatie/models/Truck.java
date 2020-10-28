@@ -1,4 +1,7 @@
 package com.nhlstenden.amazonsimulatie.models;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /*
@@ -16,8 +19,13 @@ class Truck implements Object3D, Updatable {
     private double rotationY = 0;
     private double rotationZ = 0;
 
+    private String status = "unloading";
+    private List<Stellage> stellageLading; 
+
     public Truck() {
         this.uuid = UUID.randomUUID();
+        stellageLading = new ArrayList<>();
+        addStellages(1);
     }
 
     /*
@@ -42,6 +50,26 @@ class Truck implements Object3D, Updatable {
         return true;
     }
 
+    public void addStellages(int count){
+        for(int i = 0; i < count; i++){
+            stellageLading.add(new Stellage()); 
+        }
+    }
+
+    public int countStellage(){
+        return this.stellageLading.size(); 
+    }
+
+    public void addStellage(Stellage stellage){
+        stellageLading.add(stellage);
+    }
+
+    public Stellage getStellage(){
+        Stellage stellage = stellageLading.get(0);
+        stellageLading.remove(0); 
+        return stellage; 
+    }
+
     @Override
     public String getUUID() { return this.uuid.toString(); }
 
@@ -61,4 +89,8 @@ class Truck implements Object3D, Updatable {
     public double getRotationY() { return this.rotationY; }
     @Override
     public double getRotationZ() { return this.rotationZ; }
+
+    public void setStatus(String status){ this.status = status; }
+
+    public String getStatus() { return this.status; }
 }

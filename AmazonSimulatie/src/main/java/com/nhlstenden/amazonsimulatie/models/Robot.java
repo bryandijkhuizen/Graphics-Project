@@ -13,14 +13,24 @@ import java.util.UUID;
 class Robot implements Object3D, Updatable {
     private UUID uuid;
 
-    private double x = 0;
+    private double x = 80;
     private double y = 0;
-    private double z = 0;
+    private double z = 50;
 
     private double rotationX = 0;
     private double rotationY = 0;
     private double rotationZ = 0;
-    private boolean loopFinished = true; 
+    private Integer end; 
+    private char[] path; 
+    private int xIndex = 0;
+    private int zIndex = 1;
+    private Double targetX;
+    private Double targetZ;
+    private Stellage stellage; 
+    private String status = "idle";
+   
+    
+    
 
     public Robot() {
         this.uuid = UUID.randomUUID();
@@ -40,36 +50,56 @@ class Robot implements Object3D, Updatable {
      */
     @Override
     public boolean update() {
-        int start = 1;
-        int end = 6;
-        if(loopFinished == true){
-            CallNewRoute(start, end);   
+
+        if(end != null){
+        if(path != null){
+            // if(targetX != null){
+
+            // }
+            // else{
+            //    this.targetX = (Double)((path[xIndex]) - 48) * 10;
+            // }
+            // if(targetZ != null){
+
+            // }
+            // else{
+                
+            // }
+            this.x = ((path[xIndex]) - 48) * 10;
+            this.z = ((path[zIndex]) -48) * 10;
+            if(stellage != null){
+                stellage.setX(this.x);
+                stellage.setZ(this.z);
+            }
+            if(!((zIndex + 3) > path.length)){
+                zIndex += 3;
+                xIndex += 3;  
+            }
+        } 
+        else{
+            CallNewRoute((int)(this.x + this.z /10), end);
         }
+        try{
+            Thread.sleep(500);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
         return true; 
     }
 
     public void CallNewRoute(int start, int end){
-        loopFinished = false;
         String route = GraphShow.GetRoute(start, end);
+        path = new char[route.length()];
 
-        for (int i = 0; i < route.length(); i+=3) {
-            System.out.println(x);
-            System.out.println(z);
-
-           this.x = (route.charAt(i)) - 48; 
-           this.z =  (route.charAt(i+1)) - 48;
-
-           update(); 
-
-           System.out.println(x);
-           System.out.println(z);
-
-           try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        for (int i = 0; i < route.length(); i++) {
+            path[i] = route.charAt(i);
         } 
     }
+
+    public void setEnd(Integer end) {
+        this.end = end;
     }
 
     @Override
@@ -91,4 +121,13 @@ class Robot implements Object3D, Updatable {
     public double getRotationY() { return this.rotationY; }
     @Override
     public double getRotationZ() { return this.rotationZ; }
+    
+    public void setStatus(String status){ this.status = status; }
+
+    public String getStatus() { return this.status; }
+
+    public void setStellage(Stellage stellage){ this.stellage = stellage; }
+
+    public Stellage getStellage() { return this.stellage; }
+
 }

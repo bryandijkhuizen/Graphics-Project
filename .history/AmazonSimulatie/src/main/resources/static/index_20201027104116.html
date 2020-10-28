@@ -18,7 +18,6 @@
       let gltfLoader = new GLTFLoader();
 
       function parseCommand(input = "") {
-        console.log(JSON.parse(input));
         return JSON.parse(input);
       }
 
@@ -139,9 +138,9 @@
                                 warehouse.scale.x = 1.666;
                                 //warehouse.scale.y = 0;
                                 warehouse.scale.z = 1.2;
-                                warehouse.position.x = 37;
-                                warehouse.position.z = 26.5;
-                                warehouse.rotation.y = 3.15;
+                                warehouse.position.x = 50;
+                                warehouse.position.z = 50;
+                                warehouse.rotation.y = 1;
                                 let group = new THREE.Group();
                                 group.add(warehouse); 
 
@@ -156,7 +155,7 @@
                                 truck.scale.x = 100;
                                 truck.scale.y = 100;
                                 truck.scale.z = 100;
-                                truck.position.y = 50;
+                                robot.position.y = 50;
                                 let group = new THREE.Group();
                                 group.add(truck); 
 
@@ -170,16 +169,14 @@
                      * Deze code wordt elke update uitgevoerd. Het update alle positiegegevens van het 3D object.
                      */
                     var object = worldObjects[command.parameters.uuid];
-                    if(object != null){
-                      object.position.x = command.parameters.x;
-                      object.position.y = command.parameters.y;
-                      object.position.z = command.parameters.z;
 
-                      object.rotation.x = command.parameters.rotationX;
-                      object.rotation.y = command.parameters.rotationY;
-                      object.rotation.z = command.parameters.rotationZ;
-                    }
-                   
+                    object.position.x = command.parameters.x;
+                    object.position.y = command.parameters.y;
+                    object.position.z = command.parameters.z;
+
+                    object.rotation.x = command.parameters.rotationX;
+                    object.rotation.y = command.parameters.rotationY;
+                    object.rotation.z = command.parameters.rotationZ;
                 }
             }
 
