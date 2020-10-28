@@ -53,13 +53,22 @@ class Robot implements Object3D, Updatable {
         loopFinished = false;
         String route = GraphShow.GetRoute(start, end);
         char[] xy = new char[route.length()];
-        for (int i = 0; i < route.length(); i++) {
-            xy[i] = route.charAt(i);
-        } 
+        for (int i = 0; i < route.length(); i++) { xy[i] = route.charAt(i); } 
         //19 31 51 48 63
         for (int i = 0; i < xy.length; i+=3) {
-            this.x = xy[i] - 48;
-            this.z = xy[i+1] - 48;
+            if (this.x != xy[i] - 48) {
+                if (this.x < xy[i] - 48 ) {
+                    this.x = this.x + 0.5;
+                } else {
+                    this.x = this.x - 0.5;
+                }
+            } else if (this.z != xy[i+1] - 48) {
+                if (this.z < xy[i+1] - 48) {
+                    this.z = this.z + 0.5;
+                } else {
+                    this.z = this.z - 0.5;
+                }
+            }
             update();
             try {
                 Thread.sleep(100);
