@@ -1,8 +1,5 @@
 package com.nhlstenden.amazonsimulatie.models;
 
-import java.util.List;
-import java.util.LinkedList;
-
 import java.util.UUID;
 
 /*

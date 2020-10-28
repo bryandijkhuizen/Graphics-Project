@@ -1,6 +1,7 @@
 package com.nhlstenden.amazonsimulatie.models;
 
 public class GraphShow {
+    //private final static int WAREHOUSECOUNT = 60;
 
     public static String GetRoute(int start, int end){
         //  90  91x 92x 93  94x 95x
@@ -89,9 +90,44 @@ public class GraphShow {
                                                                                                                     graphWeighted.addEdge(p83, p84, 1);
       
 
+        graphWeighted.addEdge(p00, p20, 2); graphWeighted.addEdge(p01, p00, 1); graphWeighted.addEdge(p02, p01, 1); graphWeighted.addEdge(p03, p02, 1); graphWeighted.addEdge(p04, p03, 1); graphWeighted.addEdge(p05, p04, 1);
+        graphWeighted.addEdge(p20, p00, 2); graphWeighted.addEdge(p01, p02, 1); graphWeighted.addEdge(p02, p12, 1); graphWeighted.addEdge(p03, p13, 1); graphWeighted.addEdge(p04, p05, 1); graphWeighted.addEdge(p25, p24, 1);
+        graphWeighted.addEdge(p20, p21, 1); graphWeighted.addEdge(p01, p11, 1); graphWeighted.addEdge(p02, p03, 1); graphWeighted.addEdge(p03, p04, 1); graphWeighted.addEdge(p24, p23, 1); graphWeighted.addEdge(p45, p44, 1);
+        graphWeighted.addEdge(p20, p40, 2); graphWeighted.addEdge(p11, p01, 1); graphWeighted.addEdge(p12, p02, 1); graphWeighted.addEdge(p13, p03, 1); graphWeighted.addEdge(p24, p25, 1); graphWeighted.addEdge(p65, p64, 1);
+        graphWeighted.addEdge(p40, p20, 2); graphWeighted.addEdge(p11, p10, 1); graphWeighted.addEdge(p12, p11, 1); graphWeighted.addEdge(p13, p12, 1); graphWeighted.addEdge(p44, p43, 1); graphWeighted.addEdge(p85, p84, 1);
+        graphWeighted.addEdge(p40, p41, 1); graphWeighted.addEdge(p11, p21, 1); graphWeighted.addEdge(p12, p22, 1); graphWeighted.addEdge(p13, p23, 1); graphWeighted.addEdge(p44, p45, 1);
+        graphWeighted.addEdge(p40, p60, 2); graphWeighted.addEdge(p11, p12, 1); graphWeighted.addEdge(p12, p13, 1); graphWeighted.addEdge(p23, p13, 1); graphWeighted.addEdge(p64, p63, 1);
+        graphWeighted.addEdge(p60, p40, 2); graphWeighted.addEdge(p11, p01, 1); graphWeighted.addEdge(p22, p12, 1); graphWeighted.addEdge(p23, p22, 1); graphWeighted.addEdge(p64, p65, 1);
+        graphWeighted.addEdge(p60, p61, 1); graphWeighted.addEdge(p21, p11, 1); graphWeighted.addEdge(p22, p21, 1); graphWeighted.addEdge(p23, p43, 2); graphWeighted.addEdge(p84, p83, 1);
+        graphWeighted.addEdge(p60, p80, 2); graphWeighted.addEdge(p21, p20, 1); graphWeighted.addEdge(p22, p23, 1); graphWeighted.addEdge(p23, p24, 1); graphWeighted.addEdge(p84, p85, 1);
+        graphWeighted.addEdge(p80, p60, 2); graphWeighted.addEdge(p21, p22, 1); graphWeighted.addEdge(p42, p41, 1); graphWeighted.addEdge(p43, p23, 2);
+        graphWeighted.addEdge(p80, p81, 1); graphWeighted.addEdge(p41, p40, 1); graphWeighted.addEdge(p42, p43, 1); graphWeighted.addEdge(p43, p42, 1);
+                                            graphWeighted.addEdge(p41, p42, 1); graphWeighted.addEdge(p62, p61, 1); graphWeighted.addEdge(p43, p63, 2);
+                                            graphWeighted.addEdge(p61, p60, 1); graphWeighted.addEdge(p62, p63, 1); graphWeighted.addEdge(p43, p44, 1);
+                                            graphWeighted.addEdge(p61, p62, 1); graphWeighted.addEdge(p82, p81, 1); graphWeighted.addEdge(p63, p43, 2);
+                                            graphWeighted.addEdge(p81, p80, 1); graphWeighted.addEdge(p82, p83, 1); graphWeighted.addEdge(p63, p62, 1);
+                                            graphWeighted.addEdge(p81, p82, 1);                                     graphWeighted.addEdge(p63, p83, 2);
+                                                                                                                    graphWeighted.addEdge(p63, p64, 1);
+                                                                                                                    graphWeighted.addEdge(p83, p63, 2);
+                                                                                                                    graphWeighted.addEdge(p83, p82, 1);
+                                                                                                                    graphWeighted.addEdge(p83, p84, 1);
         NodeWeighted s = punten[start];
         NodeWeighted e = punten[end];
 
         return graphWeighted.DijkstraShortestPath(s, e); 
     }
+    // public List<String> readfile(String graaf) {
+    //     List<String> coordinaten = new ArrayList<String>();
+    //     try {
+    //         BufferedReader reader = new BufferedReader(new FileReader(graaf.tgf));
+    //         String line;
+    //         while((line = reader.readLine()) != null){ coordinaten.add(line); }
+    //         reader.close();
+    //         return coordinaten;
+    //     } catch(Exception e) {
+    //         System.err.format("Exception occurred trying to read '%s'.", graaf);
+    //         e.printStackTrace();
+    //         return null;
+    //     }
+    // }
 }
