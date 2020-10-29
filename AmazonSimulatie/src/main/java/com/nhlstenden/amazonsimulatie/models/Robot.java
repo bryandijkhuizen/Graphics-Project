@@ -31,6 +31,7 @@ class Robot implements Object3D, Updatable {
 
     public Robot() {
         this.uuid = UUID.randomUUID();
+
     }
 
     /*
@@ -47,7 +48,6 @@ class Robot implements Object3D, Updatable {
      */
     @Override
     public boolean update() {
-
         if(end != null){
         if(path != null){
             // if(targetX != null){
