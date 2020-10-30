@@ -11,13 +11,19 @@ import java.util.UUID;
  */
 class Truck implements Object3D, Updatable {
     private UUID uuid;
-    private double x = 62;  
-    private double y = -2.1;
-    private double z = 15.25;
+    private double x = 0;   //- vooruit, + achteruit
+    private double y = 0; //- omlaag, + omhoog
+    private double z = 0; //- rechts, + links
 
     private double rotationX = 0;
-    private double rotationY = 0;
+    private double rotationY = 0; //1.58 = 90 graden draaien
     private double rotationZ = 0;
+    private int speed = 3;
+    private int timer = 0;
+    private boolean drivingForward = true;
+    private boolean pause = true;
+    private boolean drivingBackward = false;
+    private boolean endPathCheck = false;
 
     private String status = "unloading";
     private List<Stellage> stellageLading; 
@@ -43,7 +49,43 @@ class Truck implements Object3D, Updatable {
      */
     @Override
     public boolean update() {
+        
+        if (status.equals("leaving")) { //Als de truck vooruit kan rijden
+            drivingForward = true;
+            x = x - speed;  //Rij vooruit
+        }        
+        if (endPathCheck) { //Als het einde van de rit is bereikt
+            //Begin dan met tellen voor de pauze
+            timer += 1;
+        } else if (timer == 4) {    //Als de pauze van 4 ticks is gebeurd
+            timer = 0;
+            x = -96; //Spawn truck
+            endPathCheck = false;
+            //Commando voor achteruit rijden
+            drivingBackward = true;
+        }
+        if (drivingBackward) {
+             x = x + speed; 
+        }
         return true;
+    }
+
+    public void drivingChecks() {
+        while (!endPathCheck) { //Terwijl de route nog bezig is
+            if(x == -96 || drivingForward) {    //Als de vertrokken is
+                drivingForward = false; //stop met rijden
+                x = 69420;   //ga weg
+                endPathCheck = true;
+            }
+            if (x == 0 || drivingBackward) {   //Als de vrachtwacht aangedockt is
+                drivingBackward = false;    //Vrachtwagen aangekomen
+                status = "unloading";   //Stellages uitladen
+            }
+            // Als ? stellages zijn ingeladen
+            // {
+            //     //drivingForward = true;
+            // }
+        }
     }
 
     public void addStellages(int count){
