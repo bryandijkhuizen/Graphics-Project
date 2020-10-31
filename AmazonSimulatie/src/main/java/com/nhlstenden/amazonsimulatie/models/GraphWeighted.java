@@ -70,9 +70,9 @@ public class GraphWeighted {
     }
 
     public String DijkstraShortestPath(NodeWeighted start, NodeWeighted end) {
-        for(NodeWeighted n : nodes) {
-            System.out.println(n.name);
-        }
+        // for(NodeWeighted n : nodes) {
+        //     System.out.println(n.name);
+        // }
 
         // We keep track of which path gives us the shortest path for each node
         // by keeping track how we arrived at a particular node, we effectively
@@ -109,7 +109,7 @@ public class GraphWeighted {
             // (they aren't connected)
             if (currentNode == null) {
                 System.out.println("There isn't a path between " + start.name + " and " + end.name);
-                return "no path";
+                return null;
             }
 
             // If the closest non-visited node is our destination, we want to print the path

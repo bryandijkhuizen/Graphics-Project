@@ -37,42 +37,11 @@ class Warehouse implements Object3D, Updatable {
 
     public Warehouse() {
         this.uuid = UUID.randomUUID();
-        // stellagePositions = new ArrayList<>(); 
-        // stellagePositions.add(14);
-        // stellagePositions.add(15);
-        // stellagePositions.add(31);
-        // stellagePositions.add(32);
-        // stellagePositions.add(34);
-        // stellagePositions.add(35);
-        // stellagePositions.add(51);
-        // stellagePositions.add(52);
-        // stellagePositions.add(54);
-        // stellagePositions.add(55);
-        // stellagePositions.add(71);
-        // stellagePositions.add(72);
-        // stellagePositions.add(74);
-        // stellagePositions.add(75);
-        // stellagePositions.add(91);
-        // stellagePositions.add(92);
-        // stellagePositions.add(94);
-        // stellagePositions.add(95);
-        availableStellagePositions = "14 15 31 32 34 35 51 52 ";
-        unavailableStellagePositions = "54 55 71 72 74 75 91 92 94 9 ";
+        availableStellagePositions = "14 15 31 32 34 35 51 52 54 55 71 72 74 75 91 92 94 95 ";
+        unavailableStellagePositions = "";
     }
 
-    /*
-     * Deze update methode wordt door de World aangeroepen wanneer de
-     * World zelf geupdate wordt. Dit betekent dat elk object, ook deze
-     * robot, in de 3D wereld steeds een beetje tijd krijgt om een update
-     * uit te voeren. In de updatemethode hieronder schrijf je dus de code
-     * die de robot steeds uitvoert (bijvoorbeeld positieveranderingen). Wanneer
-     * de methode true teruggeeft (zoals in het voorbeeld), betekent dit dat
-     * er inderdaad iets veranderd is en dat deze nieuwe informatie naar de views
-     * moet worden gestuurd. Wordt false teruggegeven, dan betekent dit dat er niks
-     * is veranderd, en de informatie hoeft dus niet naar de views te worden gestuurd.
-     * (Omdat de informatie niet veranderd is, is deze dus ook nog steeds hetzelfde als
-     * in de view)
-     */
+    
     @Override
     public boolean update() {
         return true;

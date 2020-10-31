@@ -110,7 +110,6 @@ class Robot implements Object3D, Updatable {
                                     stellage.setZ(this.z);
                                 }
                             }
-                        if(truck.getStatus().equals("loading"))
                         }
                     }
                 }
