@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import scala.Int;
-
 /*
  * Deze class stelt een truck voor. Hij impelementeerd de class Object3D, omdat het ook een
  * 3D object is. Ook implementeerd deze class de interface Updatable. Dit is omdat
@@ -13,25 +11,65 @@ import scala.Int;
  */
 class Truck implements Object3D, Updatable {
     private UUID uuid;
-    private double x = 62;  
-    private double y = -2.1;
-    private double z = 15.25;
+    private double x = 0;  
+    private double y = 0;
+    private double z = 0;
 
     private double rotationX = 0;
     private double rotationY = 0;
     private double rotationZ = 0;
 
+    private int speed = 6;
+    private int timer = 0;
+    private boolean drivingForward = true;
+    private boolean pause = true;
+    private boolean drivingBackward = false;
+    private boolean endPathCheck = false;
+
     public String status = "unloading";
-    private List<Stellage> stellageLading; 
+    public static List<Stellage> stellageLading; 
 
     public Truck() {
         this.uuid = UUID.randomUUID();
         stellageLading = new ArrayList<>();
-        addStellages(4);
+        addStellages(2);
     }
     
     @Override
     public boolean update() {
+        if (World.robotList.get(0).getStatus().equals("WachtendOpTruck") && World.robotList.get(1).getStatus().equals("WachtendOpTruck") && drivingBackward == false) {
+            if(World.stellageList.isEmpty() && status.equals("leaving")){
+                x = x - speed;  //Rij vooruit
+            }
+            else if (status.equals("leaving") && World.robotList.get(0).getStellage() == null && World.robotList.get(1).getStellage() == null) { //Als de truck vooruit kan rijden
+                for(int i = 0; i <= World.stellageList.size(); i++){
+                        World.stellageList.remove(0);
+                        System.out.println("LAHDAJSJIJDJAKDA: " + World.stellageList);
+                }
+            }
+        }
+        if (drivingBackward) {
+            speed = 6; 
+             x = x + speed; 
+             if(x == 0){
+                 drivingBackward = false; 
+                 status = "unloading";
+                 addStellages(4);
+                 for(Robot robot : World.robotList){
+                     robot.setStatus("idle");
+                 }
+
+             }
+        }
+        else if(x == -96){
+            timer += 1; 
+            speed = 0; 
+        }
+        if (timer == 4) {    //Als de pauze van 4 ticks is gebeurd
+            timer = 0;
+            //Commando voor achteruit rijden
+            drivingBackward = true;
+        }
         return true;
     }
 
@@ -40,6 +78,7 @@ class Truck implements Object3D, Updatable {
             int available = Stellage.getAvailableStellagePosition(); 
             stellageLading.add(new Stellage(available)); 
             World.stellageList.add(new Stellage(available)); 
+            World.stellageList.get(i).setY(-18);
         }
     }
 

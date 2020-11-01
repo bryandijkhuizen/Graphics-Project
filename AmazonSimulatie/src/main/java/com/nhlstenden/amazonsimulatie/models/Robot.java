@@ -48,6 +48,7 @@ class Robot implements Object3D, Updatable {
      * hoeft dus niet naar de views te worden gestuurd. (Omdat de informatie niet
      * veranderd is, is deze dus ook nog steeds hetzelfde als in de view)
      */
+
     @Override
     public boolean update() {
         Truck truck = World.truckList.get(0); 
@@ -66,6 +67,7 @@ class Robot implements Object3D, Updatable {
                     //krijgt de stellage dezelfde coordinaten als de robot
                     stellage.setX(this.x);
                     stellage.setZ(this.z);
+                    stellage.setY(this.y);
                 }
                 //als de zIndex kleiner is dan de lengte van het pad worden ze met 3 opgehoogd
                 if(zIndex + 3 < path.length){
@@ -82,6 +84,7 @@ class Robot implements Object3D, Updatable {
                         if(truck.getStatus().equals("unloading")){
                             stellage.setX(this.x + 10);
                             stellage.setZ(this.z);
+                            stellage.setY(this.y);
                             stellage = null;
                             if(truck.countStellage() == 0){
                                 end = 01; 
@@ -89,17 +92,13 @@ class Robot implements Object3D, Updatable {
                             }
                         }
                         else{
-                            stellage.setX(truck.getX());
-                            stellage.setZ(truck.getZ());
-                            stellage.setY(truck.getY());
-                            //World.stellageList.remove(stellage); 
+                            stellage.setY(-18);
                             stellage = null;
-                            //end = Stellage.getOccupiedStellagePosition() - 10; 
                         }
                     }
                     else {
-                        if(truck.getStatus().equals("unloading")){
-                            if(status != "onderweg"){
+                        if(truck.getStatus().equals("loading")){
+                            if(status.equals("KlaarOmInTeLaden")){
                                 end = Stellage.getOccupiedStellagePosition() - 10; 
                             }
                             //als de robot bij de stellage is aangekomen krijgen ze dezelfde x en z
@@ -108,15 +107,51 @@ class Robot implements Object3D, Updatable {
                                     this.stellage = World.stellageList.get(i); 
                                     stellage.setX(this.x);
                                     stellage.setZ(this.z);
+                                    stellage.setY(this.y);
                                 }
                             }
-                        if(truck.getStatus().equals("loading"))
                         }
                     }
                 }
         } 
         else{
-            CallNewRoute((int)(this.x + this.z /10), end);
+            if(truck.getStatus().equals("loading") || truck.getStatus().equals("leaving")){
+                if(x == 0 && z == 10){ 
+                    if(stellage == null){
+                        if(World.unavailableStellagePositions.length() == 0){
+                            truck.status = "leaving";
+                            status = "WachtendOpTruck"; 
+                        }
+                        else{
+                            end = Stellage.getOccupiedStellagePosition() - 10; 
+                        }
+                        
+                    }
+                }
+                if(x + (z/10) == end){
+                    for(int i = 0; i <= World.stellageList.size() - 1; i++){
+                        System.out.println("StellageID: " + World.stellageList.get(i).getStellageID());
+                        //als het em is
+                        if((World.stellageList.get(i)).getStellageID() == end + 10){
+                            setStellage(World.stellageList.get(i));
+                            getStellage().setX(x);
+                            getStellage().setZ(z);
+                            getStellage().setY(y);
+                            if(!(x == 0 && z == 10)){
+                                setEnd(01);
+                                System.out.println("end after setting 4: " + end);
+                            }
+                        }
+                    } 
+                }
+            }
+            if(status.equals("WachtendOpTruck")){
+                System.out.println("de robot neemt een pauze");
+            }
+            else{
+                CallNewRoute((int)(this.x + this.z /10), end);
+            }
+          
         }
         try{
             Thread.sleep(100);

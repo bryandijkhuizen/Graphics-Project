@@ -19,7 +19,7 @@ public class World implements Model {
      * Deze objecten moeten uiteindelijk ook in de lijst passen (overerving). Daarom is dit
      * een lijst van Object3D onderdelen. Deze kunnen in principe alles zijn. (Robots, vrachrtwagens, etc)
      */
-    private List<Robot> robotList;
+    public static List<Robot> robotList;
     public static List<Stellage> stellageList;
     public static List<Truck> truckList;
     private List<Warehouse> warehouseList; 
@@ -115,6 +115,7 @@ public class World implements Model {
                             robot.setStellage(truck.getStellage());
                             robot.getStellage().setX(robot.getX());
                             robot.getStellage().setZ(robot.getZ());
+                            robot.getStellage().setY(robot.getY());
                             //zet het einde van de de route op de stellage's bestemde positie
                             robot.setEnd(robot.getStellage().getStellageID() - 10);
                         }
@@ -132,8 +133,9 @@ public class World implements Model {
                 }
             }
         }
-        //als de truck aan het inladen is
-        if(truck.getStatus().equals("loading")){
+       
+         //als de truck aan het inladen is
+         if(truck.getStatus().equals("loading")){
             //voor elke robot
             for(Robot robot : robotList){
                 //als er minder dan 5 stellages in de vrachtwagen staan
@@ -142,10 +144,6 @@ public class World implements Model {
                         if(robot.getStellage() != null){
                             //als de robot bij de loadingdock staat zet de robot zijn stellage in de truck
                             if(robot.getX() == 0 && robot.getZ() == 10){
-                                if(truck.countStellage() == 2){
-                                    truck.status = "leaving";
-                                    robot.setEnd(00); 
-                                }
                                 truck.addStellage(robot.getStellage());
                                 robot.setStellage(null);   
                                 truck.getStellage().setX(truck.getX());
@@ -159,35 +157,29 @@ public class World implements Model {
                                 System.out.println("end after setting 5: " + robot.getEnd());
                             }
                         }
-                        //als de locatie van de robot zijn eindbestemming is
-                        if((robot.getX() + robot.getZ() / 10) == robot.getEnd()){ 
-                            //de juiste stellage pakken
-                            for(int i = 0; i <= stellageList.size() - 1; i++){
-                                System.out.println("StellageID: " + stellageList.get(i).getStellageID());
-                                //als het em is
-                                if((stellageList.get(i)).getStellageID() == robot.getEnd() + 10){
-                                    robot.setStellage(stellageList.get(i));
-                                    robot.getStellage().setX(robot.getX());
-                                    robot.getStellage().setZ(robot.getZ());
-                                    if(!(robot.getX() == 0 && robot.getZ() == 10)){
-                                        robot.setEnd(01);
-                                        System.out.println("end after setting 4: " + robot.getEnd());
+                        else{
+                            //als de locatie van de robot zijn eindbestemming is
+                            if((robot.getX() + (robot.getZ() / 10)) == robot.getEnd()){ 
+                                //de juiste stellage pakken
+                                for(int i = 0; i <= stellageList.size() - 1; i++){
+                                    System.out.println("StellageID: " + stellageList.get(i).getStellageID());
+                                    //als het em is
+                                    if((stellageList.get(i)).getStellageID() == robot.getEnd() + 10){
+                                        robot.setStellage(stellageList.get(i));
+                                        robot.getStellage().setX(robot.getX());
+                                        robot.getStellage().setZ(robot.getZ());
+                                        robot.getStellage().setY(robot.getY());
+                                        if(!(robot.getX() == 0 && robot.getZ() == 10)){
+                                            robot.setEnd(01);
+                                            System.out.println("end after setting 4: " + robot.getEnd());
+                                        }
                                     }
-                                }
-                            } 
+                                } 
+                            }
                         }
-                        // if(robot.getX() == 0 && robot.getZ() == 10){ //beide komen ze als eerste hier!
-                        //     robot.setEnd(Stellage.getOccupiedStellagePosition() - 10); //hier de status op onderweg zetten
-                        //     System.out.println("end after setting 2: " + robot.getEnd());
-                        //     robot.setStatus("onderweg");
-                        // }
                         if(robot.getStatus() == "onderweg"){
                             break; 
                         }
-                        //als de robot nog geen stellage heeft pakt hij er één uit de lijst met onbeschikbare stellageplekken
-                        else {
-                            //robot.setEnd(Stellage.getOccupiedStellagePosition() - 10); //roberto gebruikt deze voor een tweede keer
-                    }
                 }
                 else {
                     truck.setStatus("leaving");
