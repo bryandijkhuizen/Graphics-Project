@@ -21,10 +21,7 @@ class Truck implements Object3D, Updatable {
 
     private int speed = 6;
     private int timer = 0;
-    private boolean drivingForward = true;
-    private boolean pause = true;
     private boolean drivingBackward = false;
-    private boolean endPathCheck = false;
 
     public String status = "unloading";
     public static List<Stellage> stellageLading; 
