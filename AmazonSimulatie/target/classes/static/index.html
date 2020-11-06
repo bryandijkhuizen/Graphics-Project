@@ -11,6 +11,7 @@
         naar updates vanaf de server over de websocket communicatie.
     -->
     <script type="module">
+      
       import * as THREE from "./three.js-master/build/three.module.js";
       import { GLTFLoader } from "./three.js-master/examples/jsm/loaders/GLTFLoader.js";
       import { OrbitControls } from "./three.js-master/examples/jsm/controls/OrbitControls.js";
@@ -59,7 +60,7 @@
                 // scene.add(plane);
 
                 var hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820, 4);
-                hemiLight.intensity = 8; 
+                hemiLight.intensity = 5; 
                 scene.add(hemiLight);
 
                 //var spotlight = new TREE.SpotLight(0xffa95c,4);
@@ -121,23 +122,24 @@
                         }
                        
                         if (command.parameters.type == "stellage") {
-                            worldObjects[command.parameters.uuid] = null;
-                            gltfLoader.load('./gltf/Stellage.glb', function ( gltf ) {
-                                let stellage = gltf.scene; 
-                                let group = new THREE.Group();
-                                group.add(stellage); 
+                          worldObjects[command.parameters.uuid] = null;
+                          gltfLoader.load('./gltf/Stellage.glb', function ( gltf ) {
+                              let stellage = gltf.scene; 
+                              let group = new THREE.Group();
+                              group.add(stellage); 
 
-                                scene.add(group);
-                                worldObjects[command.parameters.uuid] = group;
-                            });
-                        
+                              scene.add(group);
+                              worldObjects[command.parameters.uuid] = group;
+                               });
+                            //addStellageObject(); 
                         }
+
                         if (command.parameters.type == "warehouse") {
                             worldObjects[command.parameters.uuid] = null;
-                            gltfLoader.load('./gltf/warehouse.glb', function ( gltf ) {
+                            gltfLoader.load('./gltf/warehouse2.glb', function ( gltf ) {
                                 let warehouse = gltf.scene; 
                                 warehouse.scale.x = 1.666;
-                                //warehouse.scale.y = 0;
+                                warehouse.scale.y = 1.4;
                                 warehouse.scale.z = 1.2;
                                 warehouse.position.x = 37;
                                 warehouse.position.z = 26.5;

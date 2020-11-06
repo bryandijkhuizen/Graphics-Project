@@ -101,7 +101,7 @@ public class World implements Model {
         if(truck.getStatus().equals("unloading")){
             //voor elke robot:
             for(Robot robot : robotList){
-                if(robot.getStatus() == "KlaarOmInTeLaden"){
+                if(robot.getStatus().equals("KlaarOmInTeLaden")){
                     if(robotList.get(0).getStellage() == null && robotList.get(1).getStellage() == null){
                         truck.setStatus("loading");
                     }
@@ -177,7 +177,7 @@ public class World implements Model {
                                 } 
                             }
                         }
-                        if(robot.getStatus() == "onderweg"){
+                        if(robot.getStatus().equals("onderweg")){
                             break; 
                         }
                 }

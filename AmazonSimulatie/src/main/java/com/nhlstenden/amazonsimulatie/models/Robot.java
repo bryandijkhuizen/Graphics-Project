@@ -24,9 +24,6 @@ class Robot implements Object3D, Updatable {
     private String status = "idle";
 
     public String name; 
-   
-    
-    
 
     public Robot(String name, double x, double z) {
         this.uuid = UUID.randomUUID();
@@ -55,7 +52,6 @@ class Robot implements Object3D, Updatable {
 
         if(end != null){
             System.out.println("end: " + end);
-            //status = "onderweg"; 
             if(path != null){
                 status = "onderweg"; 
                 this.x = ((path[xIndex]) - 48) * 10;
@@ -65,9 +61,7 @@ class Robot implements Object3D, Updatable {
                 //als de robot een stellage heeft
                 if(stellage != null){
                     //krijgt de stellage dezelfde coordinaten als de robot
-                    stellage.setX(this.x);
-                    stellage.setZ(this.z);
-                    stellage.setY(this.y);
+                    setStellagePosition(this.x, this.y, this.z);
                 }
                 //als de zIndex kleiner is dan de lengte van het pad worden ze met 3 opgehoogd
                 if(zIndex + 3 < path.length){
@@ -75,16 +69,14 @@ class Robot implements Object3D, Updatable {
                     xIndex += 3;  
                 }
                 //anders worden ze weer gereset
-            else {
-                zIndex = 1;
-                xIndex = 0; 
-                path = null;
-                status = "idle"; 
+                else {
+                    zIndex = 1;
+                    xIndex = 0; 
+                    path = null;
+                    status = "idle"; 
                     if(stellage != null){
                         if(truck.getStatus().equals("unloading")){
-                            stellage.setX(this.x + 10);
-                            stellage.setZ(this.z);
-                            stellage.setY(this.y);
+                            setStellagePosition(this.x + 10, this.y, this.z);
                             stellage = null;
                             if(truck.countStellage() == 0){
                                 end = 01; 
@@ -105,15 +97,13 @@ class Robot implements Object3D, Updatable {
                             for(int i = 0; i <= World.stellageList.size() - 1; i++){
                                 if(World.stellageList.get(i).getStellageID() == end){
                                     this.stellage = World.stellageList.get(i); 
-                                    stellage.setX(this.x);
-                                    stellage.setZ(this.z);
-                                    stellage.setY(this.y);
+                                    setStellagePosition(this.x, this.y, this.z);
                                 }
                             }
                         }
                     }
                 }
-        } 
+            } 
         else{
             if(truck.getStatus().equals("loading") || truck.getStatus().equals("leaving")){
                 if(x == 0 && z == 10){ 
@@ -171,6 +161,12 @@ class Robot implements Object3D, Updatable {
         for (int i = 0; i < route.length(); i++) {
             path[i] = route.charAt(i);
          }
+    }
+
+    public void setStellagePosition(double x,double y,double z){
+        stellage.setX(x);
+        stellage.setZ(z);
+        stellage.setY(y);
     }
 
     public void setEnd(Integer end) {
