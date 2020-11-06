@@ -19,9 +19,9 @@ public class World implements Model {
      * Deze objecten moeten uiteindelijk ook in de lijst passen (overerving). Daarom is dit
      * een lijst van Object3D onderdelen. Deze kunnen in principe alles zijn. (Robots, vrachrtwagens, etc)
      */
-    private List<Robot> robotList;
-    private List<Stellage> stellageList;
-    private List<Truck> truckList;
+    public static List<Robot> robotList;
+    public static List<Stellage> stellageList;
+    public static List<Truck> truckList;
     private List<Warehouse> warehouseList; 
     private boolean loaded; 
     public static String availableStellagePositions; 
@@ -40,13 +40,13 @@ public class World implements Model {
     public World() {
         this.warehouseList = new ArrayList<>();
         this.warehouseList.add(new Warehouse());
-        availableStellagePositions = getAvailableStellagePositions(); 
-        unavailableStellagePositions = getUnavailableStellagePositions(); 
+        this.availableStellagePositions = getAvailableStellagePositions(); 
+        this.unavailableStellagePositions = getUnavailableStellagePositions(); 
         this.robotList = new ArrayList<>();
         this.stellageList = new ArrayList<>();
         this.truckList = new ArrayList<>();
-        this.robotList.add(new Robot());
-        this.stellageList.add(new Stellage());
+        this.robotList.add(new Robot("Roberto", 80, 50));
+        this.robotList.add(new Robot("Dustie", 60, 20));
         this.truckList.add(new Truck());
     }
 
@@ -92,30 +92,39 @@ public class World implements Model {
                     pcs.firePropertyChange(Model.UPDATE_COMMAND, null, new ProxyObject3D(object));
                 }
             }
-        }
-        
+        }  
     }
 
     public void SimulationLoop(){
         Truck truck = truckList.get(0); 
-
         //als de status van de truck op unloading staat:
         if(truck.getStatus().equals("unloading")){
             //voor elke robot:
             for(Robot robot : robotList){
+                if(robot.getStatus() == "KlaarOmInTeLaden"){
+                    if(robotList.get(0).getStellage() == null && robotList.get(1).getStellage() == null){
+                        truck.setStatus("loading");
+                    }
+                }
                 //als er nog stellages in de truck staan:
-                if(truck.countStellage() > 0){
+                if(truck.countStellage() >= 0){
                     //als de robot geen stellage vervoert:
                     if(robot.getStellage() == null){
                         //als de robot bij de truck staat wordt de stellage van de truck op de robot gezet
                         if(robot.getX() == 0 && robot.getZ() == 10){
-                            System.out.println("arrived!");
                             robot.setStellage(truck.getStellage());
                             robot.getStellage().setX(robot.getX());
                             robot.getStellage().setZ(robot.getZ());
+                            robot.getStellage().setY(robot.getY());
+                            //zet het einde van de de route op de stellage's bestemde positie
+                            robot.setEnd(robot.getStellage().getStellageID() - 10);
                         }
                         //anders gaat de robot naar het loadingdock
-                        else{ robot.setEnd(01); }
+                        else{ 
+                            System.out.println("de robot gaat naar de vrachtwagen toe");
+                            robot.setEnd(01); 
+                            System.out.println("end after setting 3: " + robot.getEnd());
+                        }
                     }
                 }
                 //als er geen stellages meer in de truck zijn is de truck aan het inladen
@@ -124,30 +133,57 @@ public class World implements Model {
                 }
             }
         }
-        //als de truck aan het inladen is
-        if(truck.getStatus().equals("loading")){
+       
+         //als de truck aan het inladen is
+         if(truck.getStatus().equals("loading")){
             //voor elke robot
             for(Robot robot : robotList){
                 //als er minder dan 5 stellages in de vrachtwagen staan
-                if(truck.countStellage() < 5){
-                    //als de robot geen stellage vervoert
-                    if(robot.getStellage() != null){
-                        //als de robot bij de loadingdock staat zet de robot zijn stellage in de truck
-                        if(robot.getX() == 0 && robot.getZ() == 10){
-                            truck.addStellage(robot.getStellage());
-                            robot.setStellage(null);   
+                if(truck.countStellage() < 5 && unavailableStellagePositions.length() >= 0){
+                    //als de robot een stellage heeft
+                        if(robot.getStellage() != null){
+                            //als de robot bij de loadingdock staat zet de robot zijn stellage in de truck
+                            if(robot.getX() == 0 && robot.getZ() == 10){
+                                truck.addStellage(robot.getStellage());
+                                robot.setStellage(null);   
+                                truck.getStellage().setX(truck.getX());
+                                truck.getStellage().setZ(truck.getZ());
+                                robot.setEnd(Stellage.getOccupiedStellagePosition() - 10);
+                                System.out.println("end after setting 1: " + robot.getEnd());
+                            }
+                            //anders gaat de robot naar de loadingdock
+                            else {
+                                robot.setEnd(01);
+                                System.out.println("end after setting 5: " + robot.getEnd());
+                            }
                         }
-                        //anders gaat de robot naar de loadingdock
                         else{
-                            robot.setEnd(01);
+                            //als de locatie van de robot zijn eindbestemming is
+                            if((robot.getX() + (robot.getZ() / 10)) == robot.getEnd()){ 
+                                //de juiste stellage pakken
+                                for(int i = 0; i <= stellageList.size() - 1; i++){
+                                    System.out.println("StellageID: " + stellageList.get(i).getStellageID());
+                                    //als het em is
+                                    if((stellageList.get(i)).getStellageID() == robot.getEnd() + 10){
+                                        robot.setStellage(stellageList.get(i));
+                                        robot.getStellage().setX(robot.getX());
+                                        robot.getStellage().setZ(robot.getZ());
+                                        robot.getStellage().setY(robot.getY());
+                                        if(!(robot.getX() == 0 && robot.getZ() == 10)){
+                                            robot.setEnd(01);
+                                            System.out.println("end after setting 4: " + robot.getEnd());
+                                        }
+                                    }
+                                } 
+                            }
                         }
-                    //als de robot nog geen stellage heeft pakt hij er één uit de lijst met  beschikbare stellages
-                    }else{
-                        Stellage stellage = stellageList.get(0); 
-                        robot.setEnd(stellage.getPosition());
-                    }
+                        if(robot.getStatus() == "onderweg"){
+                            break; 
+                        }
                 }
-                else{truck.setStatus("leaving");}
+                else {
+                    truck.setStatus("leaving");
+                    System.out.println("Truck is now leaving!");}
             }
         }
     }

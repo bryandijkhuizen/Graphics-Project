@@ -1,7 +1,6 @@
 package com.nhlstenden.amazonsimulatie.models;
 
 import java.util.UUID;
-
 /*
  * Deze class stelt een robot voor. Hij impelementeerd de class Object3D, omdat het ook een
  * 3D object is. Ook implementeerd deze class de interface Updatable. Dit is omdat
@@ -21,16 +20,19 @@ class Robot implements Object3D, Updatable {
     private char[] path; 
     private int xIndex = 0;
     private int zIndex = 1;
-    private Double targetX;
-    private Double targetZ;
     private Stellage stellage; 
     private String status = "idle";
+
+    public String name; 
    
     
     
 
-    public Robot() {
+    public Robot(String name, double x, double z) {
         this.uuid = UUID.randomUUID();
+        this.name = name; 
+        this.x = x;
+        this.z = z; 
 
     }
 
@@ -46,38 +48,113 @@ class Robot implements Object3D, Updatable {
      * hoeft dus niet naar de views te worden gestuurd. (Omdat de informatie niet
      * veranderd is, is deze dus ook nog steeds hetzelfde als in de view)
      */
+
     @Override
     public boolean update() {
+        Truck truck = World.truckList.get(0); 
+
         if(end != null){
-        if(path != null){
-            // if(targetX != null){
+            System.out.println("end: " + end);
+            //status = "onderweg"; 
+            if(path != null){
+                status = "onderweg"; 
+                this.x = ((path[xIndex]) - 48) * 10;
+                this.z = ((path[zIndex]) -48) * 10;
+                System.out.println("huidige x: " + x + "z: " + z);
 
-            // }
-            // else{
-            //    this.targetX = (Double)((path[xIndex]) - 48) * 10;
-            // }
-            // if(targetZ != null){
-
-            // }
-            // else{
-                
-            // }
-            this.x = ((path[xIndex]) - 48) * 10;
-            this.z = ((path[zIndex]) -48) * 10;
-            if(stellage != null){
-                stellage.setX(this.x);
-                stellage.setZ(this.z);
-            }
-            if(!((zIndex + 3) > path.length)){
-                zIndex += 3;
-                xIndex += 3;  
-            }
+                //als de robot een stellage heeft
+                if(stellage != null){
+                    //krijgt de stellage dezelfde coordinaten als de robot
+                    stellage.setX(this.x);
+                    stellage.setZ(this.z);
+                    stellage.setY(this.y);
+                }
+                //als de zIndex kleiner is dan de lengte van het pad worden ze met 3 opgehoogd
+                if(zIndex + 3 < path.length){
+                    zIndex += 3;
+                    xIndex += 3;  
+                }
+                //anders worden ze weer gereset
+            else {
+                zIndex = 1;
+                xIndex = 0; 
+                path = null;
+                status = "idle"; 
+                    if(stellage != null){
+                        if(truck.getStatus().equals("unloading")){
+                            stellage.setX(this.x + 10);
+                            stellage.setZ(this.z);
+                            stellage.setY(this.y);
+                            stellage = null;
+                            if(truck.countStellage() == 0){
+                                end = 01; 
+                                status = "KlaarOmInTeLaden";
+                            }
+                        }
+                        else{
+                            stellage.setY(-18);
+                            stellage = null;
+                        }
+                    }
+                    else {
+                        if(truck.getStatus().equals("loading")){
+                            if(status.equals("KlaarOmInTeLaden")){
+                                end = Stellage.getOccupiedStellagePosition() - 10; 
+                            }
+                            //als de robot bij de stellage is aangekomen krijgen ze dezelfde x en z
+                            for(int i = 0; i <= World.stellageList.size() - 1; i++){
+                                if(World.stellageList.get(i).getStellageID() == end){
+                                    this.stellage = World.stellageList.get(i); 
+                                    stellage.setX(this.x);
+                                    stellage.setZ(this.z);
+                                    stellage.setY(this.y);
+                                }
+                            }
+                        }
+                    }
+                }
         } 
         else{
-            CallNewRoute((int)(this.x + this.z /10), end);
+            if(truck.getStatus().equals("loading") || truck.getStatus().equals("leaving")){
+                if(x == 0 && z == 10){ 
+                    if(stellage == null){
+                        if(World.unavailableStellagePositions.length() == 0){
+                            truck.status = "leaving";
+                            status = "WachtendOpTruck"; 
+                        }
+                        else{
+                            end = Stellage.getOccupiedStellagePosition() - 10; 
+                        }
+                        
+                    }
+                }
+                if(x + (z/10) == end){
+                    for(int i = 0; i <= World.stellageList.size() - 1; i++){
+                        System.out.println("StellageID: " + World.stellageList.get(i).getStellageID());
+                        //als het em is
+                        if((World.stellageList.get(i)).getStellageID() == end + 10){
+                            setStellage(World.stellageList.get(i));
+                            getStellage().setX(x);
+                            getStellage().setZ(z);
+                            getStellage().setY(y);
+                            if(!(x == 0 && z == 10)){
+                                setEnd(01);
+                                System.out.println("end after setting 4: " + end);
+                            }
+                        }
+                    } 
+                }
+            }
+            if(status.equals("WachtendOpTruck")){
+                System.out.println("de robot neemt een pauze");
+            }
+            else{
+                CallNewRoute((int)(this.x + this.z /10), end);
+            }
+          
         }
         try{
-            Thread.sleep(500);
+            Thread.sleep(100);
         }
         catch (InterruptedException e) {
             e.printStackTrace();
@@ -88,20 +165,21 @@ class Robot implements Object3D, Updatable {
 
     public void CallNewRoute(int start, int end){
         String route = GraphShow.GetRoute(start, end);
+
         path = new char[route.length()];
 
         for (int i = 0; i < route.length(); i++) {
             path[i] = route.charAt(i);
-        } 
+         }
     }
 
     public void setEnd(Integer end) {
         this.end = end;
     }
+    public int getEnd() { return this.end; }
 
     @Override
     public String getUUID() { return this.uuid.toString(); }
-
     //Dit onderdeel wordt gebruikt om het type van dit object als stringwaarde terug te kunnen geven. Het moet een stringwaarde zijn omdat deze informatie nodig 
     //is op de client, en die verstuurd moet kunnen worden naar de browser. In de javascript code wordt dit dan weer verder afgehandeld.
     @Override

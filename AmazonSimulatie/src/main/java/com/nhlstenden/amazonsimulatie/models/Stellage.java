@@ -12,6 +12,7 @@ import java.util.UUID;
  * een robot geupdate kan worden binnen de 3D wereld om zich zo voort te bewegen.
  */
 class Stellage implements Object3D, Updatable {
+
     private UUID uuid;
 
     private double x = 0;
@@ -22,40 +23,59 @@ class Stellage implements Object3D, Updatable {
     private double rotationY = 0;
     private double rotationZ = 0;
 
+    private Stellage stellage; 
+    private int ID; 
     private int startX, startZ; 
+    public static int xTarget;
+    public static int zTarget; 
 
-    private boolean loopFinished = true; 
-
-    public Stellage() {
+    public Stellage(int ID) {
         this.uuid = UUID.randomUUID();
-        
-        String stellagePositions = World.availableStellagePositions;
-        char[] coordinate = new char[stellagePositions.length()];
-
-            for (int i = 0; i < stellagePositions.length(); i++) {
-                coordinate[i] = stellagePositions.charAt(i);
-            } 
-
-        if(coordinate.length > 0){ 
-            this.x = coordinate[0];
-            this.z = coordinate[1];
-            World.availableStellagePositions = World.availableStellagePositions.substring(3);
-        }
+        this.ID = ID; 
+    
     }
 
-    /*
-     * Deze update methode wordt door de World aangeroepen wanneer de
-     * World zelf geupdate wordt. Dit betekent dat elk object, ook deze
-     * robot, in de 3D wereld steeds een beetje tijd krijgt om een update
-     * uit te voeren. In de updatemethode hieronder schrijf je dus de code
-     * die de robot steeds uitvoert (bijvoorbeeld positieveranderingen). Wanneer
-     * de methode true teruggeeft (zoals in het voorbeeld), betekent dit dat
-     * er inderdaad iets veranderd is en dat deze nieuwe informatie naar de views
-     * moet worden gestuurd. Wordt false teruggegeven, dan betekent dit dat er niks
-     * is veranderd, en de informatie hoeft dus niet naar de views te worden gestuurd.
-     * (Omdat de informatie niet veranderd is, is deze dus ook nog steeds hetzelfde als
-     * in de view)
-     */
+    public static int getAvailableStellagePosition(){
+
+        String stellagePositions = World.availableStellagePositions;
+
+        if(stellagePositions.length() > 0){ 
+            //coords is de eerste 2 cijfers in de string met beschikbare stellages
+            String coords = World.availableStellagePositions.substring(0, 2);
+            //de string naar int converten
+            int c = Integer.parseInt(coords); 
+            xTarget = Integer.parseInt(World.availableStellagePositions.substring(0, 1));
+            zTarget = Integer.parseInt(World.availableStellagePositions.substring(1, 2));
+            //de eerste 3 items uit de string verwijderen zodat we de volgende keer niet dezelfde stellage krijgen
+            World.availableStellagePositions = World.availableStellagePositions.substring(3);
+            //de stellage toevoegen aan de niet beschikbare stellage string
+            World.unavailableStellagePositions = World.unavailableStellagePositions + coords + " ";
+            return c; 
+        }
+        else return 00; 
+    }
+    public static int getOccupiedStellagePosition(){
+
+        String stellagePositions = World.unavailableStellagePositions;
+
+        if(stellagePositions.length() > 0){ 
+            //coords is de eerste 2 cijfers in de string met beschikbare stellages
+            String coords = World.unavailableStellagePositions.substring(0, 2);
+            //de string naar int converten
+            int c = Integer.parseInt(coords); 
+            xTarget = Integer.parseInt(World.unavailableStellagePositions.substring(0, 1));
+            zTarget = Integer.parseInt(World.unavailableStellagePositions.substring(1, 2));
+            //de eerste 3 items uit de string verwijderen zodat we de volgende keer niet dezelfde stellage krijgen
+            World.unavailableStellagePositions = World.unavailableStellagePositions.substring(3);
+            //de stellage toevoegen aan de niet beschikbare stellage string
+            World.availableStellagePositions = World.availableStellagePositions + coords + " ";
+            System.out.println("BESCHIKBAAR: " + World.availableStellagePositions);
+            System.out.println("ONBESCHIKBAAR: " + World.unavailableStellagePositions);
+            return c; 
+        }
+        else return 00; 
+    }
+
     @Override
     public boolean update() {
          return true; 
@@ -121,4 +141,10 @@ class Stellage implements Object3D, Updatable {
     public void setZ(double z) {
         this.z = z;
     }
+
+    public void setStellage(Stellage stellage){ this.stellage = stellage; }
+
+    public Stellage getStellage() { return this.stellage; }
+
+    public int getStellageID() { return this.ID; }
 }
