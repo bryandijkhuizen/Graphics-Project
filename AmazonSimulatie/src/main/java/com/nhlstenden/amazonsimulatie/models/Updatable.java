@@ -7,6 +7,4 @@ package com.nhlstenden.amazonsimulatie.models;
  * interface implementeerd. Als dat zo is, wordt het object geupdate wanneer de
  * wereld update.
  */
-interface Updatable {
-    boolean update();
-}
+interface Updatable { boolean update(); }
