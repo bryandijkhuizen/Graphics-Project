@@ -24,36 +24,10 @@
       }
 
         var socket;
-        // document.addEven
-        // tListener("keydown", onDocumentKeyDown, false);
-        // function onDocumentKeyDown(event) {
-        //     var keyCode = event.which;
-        //         if (keyCode == 32) {
-        //         topscene = new THREE.Scene();
-        //         topscene.background = new THREE.Color(0xdddddd);
 
-        //         renderer = new THREE.WebGLRenderer({ antialias: true });
-        //         renderer.toneMapping = THREE.ReinhardToneMapping;
-        //         renderer.toneMappingExposure = 2.3; 
-        //         renderer.setPixelRatio(window.devicePixelRatio);
-        //         renderer.setSize(200, 400);
-        //         document.body.appendChild(renderer.domElement);
-
-
-        //         camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);                
-        //         cameraControls = new OrbitControls(camera, renderer.domElement);              
-        //         camera.position.z = 15;
-        //         camera.position.y = 50;
-        //         camera.position.x = 15;
-        //         cameraControls.update();
-        //     }
-        // };
-        
-
-        // window.onkeypress = function(){
-        //   topscene = new THREE.Scene();
-        //   topscene.background = new THREE.Color("rgb(255, 0, 0)");
-        // }
+        window.onclick = function(){
+          scene.background = new THREE.Color("rgb(255, 0, 0)");
+        }
         window.onload = function () {
             var camera, scene, renderer;
             var cameraControls;
@@ -96,7 +70,6 @@
           requestAnimationFrame(animate);
           cameraControls.update();
           renderer.render(scene, camera);
-          //renderer.render(topscene, camera);
         }
 
         /*

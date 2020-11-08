@@ -24,7 +24,36 @@
       }
 
         var socket;
+        // document.addEven
+        // tListener("keydown", onDocumentKeyDown, false);
+        // function onDocumentKeyDown(event) {
+        //     var keyCode = event.which;
+        //         if (keyCode == 32) {
+        //         topscene = new THREE.Scene();
+        //         topscene.background = new THREE.Color(0xdddddd);
 
+        //         renderer = new THREE.WebGLRenderer({ antialias: true });
+        //         renderer.toneMapping = THREE.ReinhardToneMapping;
+        //         renderer.toneMappingExposure = 2.3; 
+        //         renderer.setPixelRatio(window.devicePixelRatio);
+        //         renderer.setSize(200, 400);
+        //         document.body.appendChild(renderer.domElement);
+
+
+        //         camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);                
+        //         cameraControls = new OrbitControls(camera, renderer.domElement);              
+        //         camera.position.z = 15;
+        //         camera.position.y = 50;
+        //         camera.position.x = 15;
+        //         cameraControls.update();
+        //     }
+        // };
+        
+
+        // window.onkeypress = function(){
+        //   topscene = new THREE.Scene();
+        //   topscene.background = new THREE.Color("rgb(255, 0, 0)");
+        // }
         window.onload = function () {
             var camera, scene, renderer;
             var cameraControls;
@@ -43,7 +72,8 @@
                 document.body.appendChild(renderer.domElement);
 
 
-                camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);                cameraControls = new OrbitControls(camera, renderer.domElement);              
+                camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);                
+                cameraControls = new OrbitControls(camera, renderer.domElement);              
                 camera.position.z = 15;
                 camera.position.y = 50;
                 camera.position.x = 15;
@@ -51,21 +81,9 @@
 
                 window.addEventListener('resize', onWindowResize, false);
 
-                // var geometry = new THREE.PlaneGeometry(60, 50, 1);
-                // var material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
-                // var plane = new THREE.Mesh(geometry, material);
-                // plane.rotation.x = Math.PI / 2.0;
-                // plane.position.x = 20;
-                // plane.position.z = 20;
-                // scene.add(plane);
-
                 var hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820, 4);
                 hemiLight.intensity = 5; 
                 scene.add(hemiLight);
-
-                //var spotlight = new TREE.SpotLight(0xffa95c,4);
-                //spotlight.castShadow = true; 
-                //scene.add(spotlight);
             }
 
         function onWindowResize() {
@@ -78,6 +96,7 @@
           requestAnimationFrame(animate);
           cameraControls.update();
           renderer.render(scene, camera);
+          //renderer.render(topscene, camera);
         }
 
         /*
@@ -102,7 +121,7 @@
                             var cubeMaterials = [
                                 new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //LEFT
                                 new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //RIGHT
-                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_top.png"), side: THREE.DoubleSide }), //TOP
+                                new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/trumphuilt.png"), side: THREE.DoubleSide }), //TOP
                                 new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_bottom.png"), side: THREE.DoubleSide }), //BOTTOM
                                 new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_front.png"), side: THREE.DoubleSide }), //FRONT
                                 new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_front.png"), side: THREE.DoubleSide }), //BACK
@@ -131,7 +150,6 @@
                               scene.add(group);
                               worldObjects[command.parameters.uuid] = group;
                                });
-                            //addStellageObject(); 
                         }
 
                         if (command.parameters.type == "warehouse") {
