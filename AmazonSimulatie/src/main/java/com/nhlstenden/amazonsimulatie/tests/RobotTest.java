@@ -1,7 +1,6 @@
 package com.nhlstenden.amazonsimulatie.tests;
 
 import static org.junit.Assert.assertEquals;
-
 import com.nhlstenden.amazonsimulatie.models.Robot;
 import com.nhlstenden.amazonsimulatie.models.Stellage;
 

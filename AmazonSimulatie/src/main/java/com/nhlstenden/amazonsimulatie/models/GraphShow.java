@@ -1,108 +1,10 @@
 package com.nhlstenden.amazonsimulatie.models;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 public class GraphShow {
-
-    // Scanner scanner;
-
-    // public static String numberToMappingString(int number) {
-    //     String numberString = Integer.toString(number);
-    //     if (number < 10) {
-    //         return "0" + numberString;
-    //     }
-    //     return numberString;
-    // }
-
-    // public static String GetRoute(int start, int end) {
-    //     // 90 91x 92x 93 94x 95x
-    //     // 80 81 82 83 84 85
-    //     // 70 71x 72x 73 74x 75x
-    //     // 60 61 62 63 64 65
-    //     // 50 51x 52x 53 54x 55x
-    //     // 40 41 42 43 44 45
-    //     // 30 31x 32x 33 34x 35x
-    //     // 20 21 22 23 24 25
-    //     // 10 11 12 13 14x 15x
-    //     // 00 01 02 03 04 05
-
-    //     GraphWeighted graphWeighted = new GraphWeighted(true);
-
-    //     List<NodeWeighted> nodesWeightedList = new ArrayList<>();
-    //     NodeWeighted[] nodesWeightedArray = new NodeWeighted[54];
-    //     boolean isCreatingMappings = true;
-    //     boolean isCreated = false;
-    //     try {
-    //         File myObj = new File(
-    //                 "C:/Gebruikers/Hieke Wiersma/Deze pc/Bureaublad/HBO ICT jaar 1/Periode 4/project/project/Graphics-Project/AmazonSimulatie/src/main/resources/static/tgf/graaf.tgf");
-    //         Scanner myReader = new Scanner(myObj);
-    //         while (myReader.hasNextLine()) {
-    //             String data = myReader.nextLine();
-    //             if (data.equals("#")) {
-    //                 isCreatingMappings = false;
-    //                 continue;
-    //             }
-    //             if (isCreatingMappings) {
-    //                 String[] name = data.split(" ");
-    //                 String positionName = name[0]; // Positie van variabele in lijst graaf
-    //                 String variableName = name[1]; // Variabele zelf
-
-    //                 // Create Objects from mappings
-    //                 nodesWeightedList.add(new NodeWeighted(Integer.parseInt(positionName), variableName));
-    //                 if (("p" + Integer.toString(start)).equals(variableName)) {
-    //                     start = Integer.parseInt(name[0]) - 1;
-    //                 }
-    //             } else {
-    //                 if (!isCreated) {
-    //                     for (int i = 0; i < nodesWeightedList.size(); i++) {
-    //                         nodesWeightedArray[i] = nodesWeightedList.get(i);
-    //                     }
-    //                     isCreated = true;
-    //                 }
-    //                 String[] lineValues = data.split(" ");
-    //                 int test = Integer.parseInt(lineValues[0]) - 1;
-    //                 NodeWeighted source = nodesWeightedArray[Integer.parseInt(lineValues[0]) - 1];
-    //                 NodeWeighted destination = nodesWeightedArray[Integer.parseInt(lineValues[1]) - 1];
-    //                 int weight = Integer.parseInt(lineValues[2]);
-
-    //                 graphWeighted.addEdge(source, destination, weight); // Vooruit
-    //                 graphWeighted.addEdge(destination, source, weight); // Achteruit
-    //             }
-    //         }
-    //         myReader.close();
-    //     } catch (FileNotFoundException e) {
-    //         System.out.println("An error occurred.");
-    //         e.printStackTrace();
-    //     }
-
-    //     NodeWeighted startNode = nodesWeightedArray[Integer.parseInt(numberToMappingString(start))];
-    //     NodeWeighted endNode = nodesWeightedArray[Integer.parseInt(numberToMappingString(end))];
-    //     return graphWeighted.DijkstraShortestPath(startNode, endNode);
-    // }
     public static String GetRoute(int start, int end){
-        //  90  91x 92x 93  94x 95x
-        //  80  81  82  83  84  85
-        //  70  71x 72x 73  74x 75x
-        //  60  61  62  63  64  65
-        //  50  51x 52x 53  54x 55x
-        //  40  41  42  43  44  45
-        //  30  31x 32x 33  34x 35x
-        //  20  21  22  23  24  25
-        //  10  11  12  13  14x 15x
-        //  00  01  02  03  04  05
 
         GraphWeighted graphWeighted = new GraphWeighted(true);
 
-        // NodeWeighted[] punten = new NodeWeighted[96];
-        // NodeWeighted[] p = new NodeWeighted[96];
-        // for (int i = 0; i < punten.length; i++) {
-        //     String lower = Integer.toString(i);
-        //     p[i]  = new NodeWeighted(i, lower.length() == 1 ? "0" + lower : lower);
-        // }
         NodeWeighted p90 = new NodeWeighted(90, "90");  NodeWeighted p93 = new NodeWeighted(93, "93");
         NodeWeighted p80 = new NodeWeighted(80, "80");  NodeWeighted p83 = new NodeWeighted(83, "83");
         NodeWeighted p70 = new NodeWeighted(70, "70");  NodeWeighted p73 = new NodeWeighted(73, "73");
@@ -145,7 +47,16 @@ public class GraphShow {
         NodeWeighted x18 = new NodeWeighted(0, "0"); NodeWeighted x38 = new NodeWeighted(0, "0"); NodeWeighted x58 = new NodeWeighted(0, "0"); NodeWeighted x78 = new NodeWeighted(0, "0");
         NodeWeighted x19 = new NodeWeighted(0, "0"); NodeWeighted x39 = new NodeWeighted(0, "0"); NodeWeighted x59 = new NodeWeighted(0, "0"); NodeWeighted x79 = new NodeWeighted(0, "0");
 
-        NodeWeighted[] punten = new NodeWeighted[]{ p00, p01, p02, p03, p04, p05, x6, x7, x8, x9, p10, p11, p12, p13, p14, p15, x16, x17, x18, x19, p20, p21, p22, p23, p24, p25, x26, x27, x28, x29, p30, p31, p32, p33, p34, p35, x36, x37, x38, x39, p40, p41, p42, p43, p44, p45, x46, x47, x48, x49, p50, p51, p52, p53, p54, p55, x56, x57, x58, x59, p60, p61, p62, p63, p64, p65, x66, x67, x68, x69, p70, p71, p72, p73, p74, p75, x76, x77, x78, x79, p80, p81, p82, p83, p84, p85, x86, x87, x88, x89, p90, p91, p92, p93, p94, p95}; 
+        NodeWeighted[] punten = new NodeWeighted[]{ p00, p01, p02, p03, p04, p05, x6, x7, x8, x9, p10, 
+            p11, p12, p13, p14, p15, x16, x17, x18, x19, p20, 
+            p21, p22, p23, p24, p25, x26, x27, x28, x29, 
+            p30, p31, p32, p33, p34, p35, x36, x37, x38, x39, 
+            p40, p41, p42, p43, p44, p45, x46, x47, x48, x49, 
+            p50, p51, p52, p53, p54, p55, x56, x57, x58, x59, 
+            p60, p61, p62, p63, p64, p65, x66, x67, x68, x69, 
+            p70, p71, p72, p73, p74, p75, x76, x77, x78, x79, 
+            p80, p81, p82, p83, p84, p85, x86, x87, x88, x89, 
+            p90, p91, p92, p93, p94, p95}; 
 
         graphWeighted.addEdge(p00, p20, 2); graphWeighted.addEdge(p01, p00, 1); graphWeighted.addEdge(p02, p01, 1); graphWeighted.addEdge(p03, p02, 1); graphWeighted.addEdge(p04, p03, 1); graphWeighted.addEdge(p05, p04, 1);
         graphWeighted.addEdge(p20, p00, 2); graphWeighted.addEdge(p01, p02, 1); graphWeighted.addEdge(p02, p12, 1); graphWeighted.addEdge(p03, p13, 1); graphWeighted.addEdge(p04, p05, 1); graphWeighted.addEdge(p25, p24, 1);
@@ -168,8 +79,6 @@ public class GraphShow {
                                                                                                                     graphWeighted.addEdge(p83, p63, 2);
                                                                                                                     graphWeighted.addEdge(p83, p82, 1);
                                                                                                                     graphWeighted.addEdge(p83, p84, 1);
-      
-
         NodeWeighted s = punten[start];
         NodeWeighted e = punten[end];
 

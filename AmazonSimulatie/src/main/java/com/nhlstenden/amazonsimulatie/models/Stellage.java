@@ -38,7 +38,6 @@ public class Stellage implements Object3D, Updatable {
     public static int getAvailableStellagePosition(){
 
         String stellagePositions = World.availableStellagePositions;
-
         if(stellagePositions.length() > 0){ 
             //coords is de eerste 2 cijfers in de string met beschikbare stellages
             String coords = World.availableStellagePositions.substring(0, 2);
@@ -57,7 +56,6 @@ public class Stellage implements Object3D, Updatable {
     public static int getOccupiedStellagePosition(){
 
         String stellagePositions = World.unavailableStellagePositions;
-
         if(stellagePositions.length() > 0){ 
             //coords is de eerste 2 cijfers in de string met beschikbare stellages
             String coords = World.unavailableStellagePositions.substring(0, 2);
@@ -77,14 +75,10 @@ public class Stellage implements Object3D, Updatable {
     }
 
     @Override
-    public boolean update() {
-         return true; 
-    }
+    public boolean update() { return true; }
 
     @Override
-    public String getUUID() {
-        return this.uuid.toString();
-    }
+    public String getUUID() { return this.uuid.toString(); }
 
     @Override
     public String getType() {

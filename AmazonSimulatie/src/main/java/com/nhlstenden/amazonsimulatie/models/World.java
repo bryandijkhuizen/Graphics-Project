@@ -65,32 +65,24 @@ public class World implements Model {
         if(!loaded){
             for(Object3D object : warehouseList){
                 if(object instanceof Updatable){
-                    if(((Updatable)object).update()){
-                        pcs.firePropertyChange(Model.UPDATE_COMMAND, null, new ProxyObject3D(object));
-                    }
+                    if(((Updatable)object).update()){ pcs.firePropertyChange(Model.UPDATE_COMMAND, null, new ProxyObject3D(object)); }
                 }
             }
             this.loaded = true; 
         }
         for(Object3D object : robotList){
             if(object instanceof Updatable){
-                if(((Updatable)object).update()){
-                    pcs.firePropertyChange(Model.UPDATE_COMMAND, null, new ProxyObject3D(object));
-                }
+                if(((Updatable)object).update()){ pcs.firePropertyChange(Model.UPDATE_COMMAND, null, new ProxyObject3D(object)); }
             }
         }
         for(Object3D object : stellageList){
             if(object instanceof Updatable){
-                if(((Updatable)object).update()){
-                    pcs.firePropertyChange(Model.UPDATE_COMMAND, null, new ProxyObject3D(object));
-                }
+                if(((Updatable)object).update()){ pcs.firePropertyChange(Model.UPDATE_COMMAND, null, new ProxyObject3D(object)); }
             }
         }
         for(Object3D object : truckList){
             if(object instanceof Updatable){
-                if(((Updatable)object).update()){
-                    pcs.firePropertyChange(Model.UPDATE_COMMAND, null, new ProxyObject3D(object));
-                }
+                if(((Updatable)object).update()){ pcs.firePropertyChange(Model.UPDATE_COMMAND, null, new ProxyObject3D(object)); }
             }
         }  
     }
@@ -102,9 +94,7 @@ public class World implements Model {
             //voor elke robot:
             for(Robot robot : robotList){
                 if(robot.getStatus().equals("KlaarOmInTeLaden")){
-                    if(robotList.get(0).getStellage() == null && robotList.get(1).getStellage() == null){
-                        truck.setStatus("loading");
-                    }
+                    if(robotList.get(0).getStellage() == null && robotList.get(1).getStellage() == null){ truck.setStatus("loading"); }
                 }
                 //als er nog stellages in de truck staan:
                 if(truck.countStellage() >= 0){
@@ -128,21 +118,15 @@ public class World implements Model {
                     }
                 }
                 //als er geen stellages meer in de truck zijn is de truck aan het inladen
-                else{
-                    truck.setStatus("loading");
-                }
+                else{ truck.setStatus("loading"); }
             }
-        }
-       
+        }       
          //als de truck aan het inladen is
          if(truck.getStatus().equals("loading")){
             //voor elke robot
-            for(Robot robot : robotList){
-                //als er minder dan 5 stellages in de vrachtwagen staan
-                if(truck.countStellage() < 5 && unavailableStellagePositions.length() >= 0){
-                    //als de robot een stellage heeft
-                        if(robot.getStellage() != null){
-                            //als de robot bij de loadingdock staat zet de robot zijn stellage in de truck
+            for(Robot robot : robotList){ //als er minder dan 5 stellages in de vrachtwagen staan
+                if(truck.countStellage() < 5 && unavailableStellagePositions.length() >= 0){ //als de robot een stellage heeft
+                        if(robot.getStellage() != null){ //als de robot bij de loadingdock staat zet de robot zijn stellage in de truck
                             if(robot.getX() == 0 && robot.getZ() == 10){
                                 truck.addStellage(robot.getStellage());
                                 robot.setStellage(null);   
@@ -150,9 +134,7 @@ public class World implements Model {
                                 truck.getStellage().setZ(truck.getZ());
                                 robot.setEnd(Stellage.getOccupiedStellagePosition() - 10);
                                 System.out.println("end after setting 1: " + robot.getEnd());
-                            }
-                            //anders gaat de robot naar de loadingdock
-                            else {
+                            } else { //anders gaat de robot naar de loadingdock
                                 robot.setEnd(01);
                                 System.out.println("end after setting 5: " + robot.getEnd());
                             }
@@ -177,9 +159,7 @@ public class World implements Model {
                                 } 
                             }
                         }
-                        if(robot.getStatus().equals("onderweg")){
-                            break; 
-                        }
+                        if(robot.getStatus().equals("onderweg")){ break; }
                 }
                 else {
                     truck.setStatus("leaving");
@@ -192,9 +172,7 @@ public class World implements Model {
      * Standaardfunctionaliteit. Hoeft niet gewijzigd te worden.
      */
     @Override
-    public void addObserver(PropertyChangeListener pcl) {
-        pcs.addPropertyChangeListener(pcl);
-    }
+    public void addObserver(PropertyChangeListener pcl) { pcs.addPropertyChangeListener(pcl); }
 
     /*
      * Deze methode geeft een lijst terug van alle objecten in de wereld. De lijst is echter wel
@@ -204,27 +182,12 @@ public class World implements Model {
     @Override
     public List<Object3D> getWorldObjectsAsList() {
         ArrayList<Object3D> returnList = new ArrayList<>();
-
-        for(Object3D object : warehouseList){
-            returnList.add(new ProxyObject3D(object));
-        }
-        for(Object3D object : robotList){
-            returnList.add(new ProxyObject3D(object));
-        }
-        for(Object3D object : stellageList){
-            returnList.add(new ProxyObject3D(object));
-        }
-        for(Object3D object : truckList){
-            returnList.add(new ProxyObject3D(object));
-        }
+        for(Object3D object : warehouseList){ returnList.add(new ProxyObject3D(object)); }
+        for(Object3D object : robotList){ returnList.add(new ProxyObject3D(object)); }
+        for(Object3D object : stellageList){ returnList.add(new ProxyObject3D(object)); }
+        for(Object3D object : truckList){ returnList.add(new ProxyObject3D(object)); }
         return returnList;
     }
-
-    public String getAvailableStellagePositions(){
-        return warehouseList.get(0).getAvailableStellagePositions();
-    }
-
-    public String getUnavailableStellagePositions(){
-        return warehouseList.get(0).getUnavailableStellagePositions();
-    }
+    public String getAvailableStellagePositions(){ return warehouseList.get(0).getAvailableStellagePositions(); }
+    public String getUnavailableStellagePositions(){ return warehouseList.get(0).getUnavailableStellagePositions(); }
 }
