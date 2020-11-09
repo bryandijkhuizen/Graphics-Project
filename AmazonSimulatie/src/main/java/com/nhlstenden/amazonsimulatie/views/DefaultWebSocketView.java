@@ -1,8 +1,10 @@
 package com.nhlstenden.amazonsimulatie.views;
 
 import java.io.IOException;
+
 import com.nhlstenden.amazonsimulatie.base.Command;
 import com.nhlstenden.amazonsimulatie.models.Object3D;
+
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -18,7 +20,9 @@ public class DefaultWebSocketView implements View {
     private WebSocketSession sesion;
     private Command onClose;
 
-    public DefaultWebSocketView(WebSocketSession sesion) { this.sesion = sesion; }
+    public DefaultWebSocketView(WebSocketSession sesion) {
+        this.sesion = sesion;
+    }
 
     /*
      * Deze methode wordt aangroepen vanuit de controller wanneer er een update voor
@@ -35,12 +39,19 @@ public class DefaultWebSocketView implements View {
                 + surroundString("parameters") + ": " + jsonifyObject3D(data)
               + "}"));
             }
-            else { this.onClose.execute(); }
-        } catch (IOException e) { this.onClose.execute(); }
+            else {
+                this.onClose.execute();
+            }
+            
+        } catch (IOException e) {
+            this.onClose.execute();
+        }
     }
 
     @Override
-    public void onViewClose(Command command) { onClose = command; }
+    public void onViewClose(Command command) {
+        onClose = command;
+    }
 
     /*
      * Deze methode maakt van een Object3D object een JSON pakketje om verstuurd te worden

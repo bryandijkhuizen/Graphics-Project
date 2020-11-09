@@ -1,8 +1,10 @@
 package com.nhlstenden.amazonsimulatie.tests;
 
 import static org.junit.Assert.assertEquals;
+
 import com.nhlstenden.amazonsimulatie.models.Robot;
 import com.nhlstenden.amazonsimulatie.models.Stellage;
+
 import org.junit.Test;
 
 public class RobotTest{
@@ -32,6 +34,10 @@ public class RobotTest{
         //assertEquals("Storage object isn't ...", ?, wall_E.getStellage()); 1ste stellage waarde
         wallE.setStellage(ikea);
         assertEquals("Storage object isn't jysk", ikea, wallE.getStellage());
+
+        //Test aanroep voor nieuwe route
+        //wallE.CallNewRoute(85, 01);
+        //assertEquals("Robot can't find new route from start to end", 85, 01, wallE.CallNewRoute(85, 01), 0.0);
         
         //Test aanroep van eind node door robot met wijziging van end node
         wallE.setEnd(05);
@@ -42,5 +48,7 @@ public class RobotTest{
         //Test aanroep status van de robot met wijziging van status
         wallE.setStatus("onderweg");
         assertEquals("Robot status isn't 'onderweg'", "onderweg", wallE.getStatus());
+
+
     }
 }

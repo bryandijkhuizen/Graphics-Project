@@ -48,7 +48,8 @@ public class Robot implements Object3D, Updatable {
 
     @Override
     public boolean update() {
-        Truck truck = World.truckList.get(0);
+        Truck truck = World.truckList.get(0); 
+
         if(end != null){
             System.out.println("end: " + end);
             if(path != null){
@@ -56,8 +57,12 @@ public class Robot implements Object3D, Updatable {
                 this.x = ((path[xIndex]) - 48) * 10;
                 this.z = ((path[zIndex]) -48) * 10;
                 System.out.println("huidige x: " + x + "z: " + z);
+
                 //als de robot een stellage heeft
-                if(stellage != null){ setStellagePosition(this.x, this.y, this.z); } //krijgt de stellage dezelfde coordinaten als de robot
+                if(stellage != null){
+                    //krijgt de stellage dezelfde coordinaten als de robot
+                    setStellagePosition(this.x, this.y, this.z);
+                }
                 //als de zIndex kleiner is dan de lengte van het pad worden ze met 3 opgehoogd
                 if(zIndex + 3 < path.length){
                     zIndex += 3;
@@ -85,7 +90,9 @@ public class Robot implements Object3D, Updatable {
                     }
                     else {
                         if(truck.getStatus().equals("loading")){
-                            if(status.equals("KlaarOmInTeLaden")){ end = Stellage.getOccupiedStellagePosition() - 10; }
+                            if(status.equals("KlaarOmInTeLaden")){
+                                end = Stellage.getOccupiedStellagePosition() - 10; 
+                            }
                             //als de robot bij de stellage is aangekomen krijgen ze dezelfde x en z
                             for(int i = 0; i <= World.stellageList.size() - 1; i++){
                                 if(World.stellageList.get(i).getStellageID() == end){
@@ -96,55 +103,81 @@ public class Robot implements Object3D, Updatable {
                         }
                     }
                 }
-            } else{
-                if(truck.getStatus().equals("loading") || truck.getStatus().equals("leaving")){
-                    if(x == 0 && z == 10){ 
-                        if(stellage == null){
-                            if(World.unavailableStellagePositions.length() == 0){
-                                truck.status = "leaving";
-                                status = "WachtendOpTruck"; 
-                            }
-                            else{ end = Stellage.getOccupiedStellagePosition() - 10; }                        
+            } 
+        else{
+            if(truck.getStatus().equals("loading") || truck.getStatus().equals("leaving")){
+                if(x == 0 && z == 10){ 
+                    if(stellage == null){
+                        if(World.unavailableStellagePositions.length() == 0){
+                            truck.status = "leaving";
+                            status = "WachtendOpTruck"; 
                         }
-                    }
-                    if(x + (z/10) == end){
-                        for(int i = 0; i <= World.stellageList.size() - 1; i++){
-                            System.out.println("StellageID: " + World.stellageList.get(i).getStellageID());
-                            if((World.stellageList.get(i)).getStellageID() == end + 10) {
-                                setStellage(World.stellageList.get(i));
-                                getStellage().setX(x);
-                                getStellage().setZ(z);
-                                getStellage().setY(y);
-                                if(!(x == 0 && z == 10)){
-                                    setEnd(01);
-                                    System.out.println("end after setting 4: " + end);
-                                }
-                            }
-                        } 
+                        else{
+                            end = Stellage.getOccupiedStellagePosition() - 10; 
+                        }
+                        
                     }
                 }
-                if(status.equals("WachtendOpTruck")){ System.out.println("de robot neemt een pauze"); }
-                else{ CallNewRoute((int)(this.x + this.z /10), end); }
+                if(x + (z/10) == end){
+                    for(int i = 0; i <= World.stellageList.size() - 1; i++){
+                        System.out.println("StellageID: " + World.stellageList.get(i).getStellageID());
+                        //als het em is
+                        if((World.stellageList.get(i)).getStellageID() == end + 10){
+                            setStellage(World.stellageList.get(i));
+                            getStellage().setX(x);
+                            getStellage().setZ(z);
+                            getStellage().setY(y);
+                            if(!(x == 0 && z == 10)){
+                                setEnd(01);
+                                System.out.println("end after setting 4: " + end);
+                            }
+                        }
+                    } 
+                }
             }
-            try{ Thread.sleep(100);}
-            catch (InterruptedException e) { e.printStackTrace(); }
+            if(status.equals("WachtendOpTruck")){
+                System.out.println("de robot neemt een pauze");
+            }
+            else{
+                CallNewRoute((int)(this.x + this.z /10), end);
+            }
+          
         }
+        try{
+            Thread.sleep(100);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
         return true; 
     }
+
     public void CallNewRoute(int start, int end){
         String route = GraphShow.GetRoute(start, end);
+
         path = new char[route.length()];
-        for (int i = 0; i < route.length(); i++) { path[i] = route.charAt(i); }
+
+        for (int i = 0; i < route.length(); i++) {
+            path[i] = route.charAt(i);
+         }
     }
+
     public void setStellagePosition(double x,double y,double z){
         stellage.setX(x);
         stellage.setZ(z);
         stellage.setY(y);
     }
-    public void setEnd(Integer end) { this.end = end; }
+
+    public void setEnd(Integer end) {
+        this.end = end;
+    }
     public int getEnd() { return this.end; }
+
     @Override
     public String getUUID() { return this.uuid.toString(); }
+    //Dit onderdeel wordt gebruikt om het type van dit object als stringwaarde terug te kunnen geven. Het moet een stringwaarde zijn omdat deze informatie nodig 
+    //is op de client, en die verstuurd moet kunnen worden naar de browser. In de javascript code wordt dit dan weer verder afgehandeld.
     @Override
     public String getType() { return Robot.class.getSimpleName().toLowerCase(); }
     @Override
@@ -159,8 +192,13 @@ public class Robot implements Object3D, Updatable {
     public double getRotationY() { return this.rotationY; }
     @Override
     public double getRotationZ() { return this.rotationZ; }
+    
     public void setStatus(String status){ this.status = status; }
+
     public String getStatus() { return this.status; }
+
     public void setStellage(Stellage stellage){ this.stellage = stellage; }
+
     public Stellage getStellage() { return this.stellage; }
+
 }
