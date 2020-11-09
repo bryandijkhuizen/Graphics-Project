@@ -23,6 +23,10 @@
         console.log(JSON.parse(input));
         return JSON.parse(input);
       }
+<<<<<<< Updated upstream
+=======
+      
+>>>>>>> Stashed changes
       let socket;
       window.onload = function () {
         var camera, scene, renderer;
@@ -39,12 +43,16 @@
           renderer.setSize(window.innerWidth, window.innerHeight + 5);
           document.body.appendChild(renderer.domElement);
 
+<<<<<<< Updated upstream
           camera = new THREE.PerspectiveCamera(
             70,
             window.innerWidth / window.innerHeight,
             1,
             1000
           );
+=======
+          camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight,1,1000);
+>>>>>>> Stashed changes
           cameraControls = new OrbitControls(camera, renderer.domElement);
           camera.position.z = 15;
           camera.position.y = 50;
