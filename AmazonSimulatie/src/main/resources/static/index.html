@@ -23,6 +23,7 @@
         console.log(JSON.parse(input));
         return JSON.parse(input);
       }
+      
       let socket;
       window.onload = function () {
         var camera, scene, renderer;
@@ -38,13 +39,7 @@
           renderer.setPixelRatio(window.devicePixelRatio);
           renderer.setSize(window.innerWidth, window.innerHeight + 5);
           document.body.appendChild(renderer.domElement);
-
-          camera = new THREE.PerspectiveCamera(
-            70,
-            window.innerWidth / window.innerHeight,
-            1,
-            1000
-          );
+          camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight,1,1000);
           cameraControls = new OrbitControls(camera, renderer.domElement);
           camera.position.z = 15;
           camera.position.y = 50;

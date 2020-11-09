@@ -17,21 +17,50 @@ package com.nhlstenden.amazonsimulatie.models;
  */
 public class ProxyObject3D implements Object3D {
     private Object3D object;
-    public ProxyObject3D(Object3D object) { this.object = object; }
+
+    public ProxyObject3D(Object3D object) {
+        this.object = object;
+    }
+
     @Override
-    public String getUUID() { return this.object.getUUID(); }
+    public String getUUID() {
+        return this.object.getUUID();
+    }
+
     @Override
-    public String getType() { return this.object.getType(); }
+    public String getType() {
+        return this.object.getType();
+    }
+
     @Override
-    public double getX() { return this.object.getX(); }
+    public double getX() {
+        return this.object.getX();
+    }
+
     @Override
-    public double getY() { return this.object.getY(); }
+    public double getY() {
+        return this.object.getY();
+    }
+
     @Override
-    public double getZ() { return this.object.getZ(); }
+    public double getZ() {
+        return this.object.getZ();
+    }
+
     @Override
-    public double getRotationX() { return this.object.getRotationX(); }
+    public double getRotationX() {
+        return this.object.getRotationX();
+    }
+
     @Override
-    public double getRotationY() { return this.object.getRotationY(); }
+    public double getRotationY() {
+        return this.object.getRotationY();
+    }
+
     @Override
-    public double getRotationZ() { return this.object.getRotationZ(); }
+    public double getRotationZ() {
+        return this.object.getRotationZ();
+    }
+
+
 }

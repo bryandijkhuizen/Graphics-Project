@@ -4,7 +4,7 @@ public class GraphShow {
     public static String GetRoute(int start, int end){
 
         GraphWeighted graphWeighted = new GraphWeighted(true);
-        
+
         NodeWeighted p90 = new NodeWeighted(90, "90");  NodeWeighted p93 = new NodeWeighted(93, "93");
         NodeWeighted p80 = new NodeWeighted(80, "80");  NodeWeighted p83 = new NodeWeighted(83, "83");
         NodeWeighted p70 = new NodeWeighted(70, "70");  NodeWeighted p73 = new NodeWeighted(73, "73");
@@ -47,10 +47,9 @@ public class GraphShow {
         NodeWeighted x18 = new NodeWeighted(0, "0"); NodeWeighted x38 = new NodeWeighted(0, "0"); NodeWeighted x58 = new NodeWeighted(0, "0"); NodeWeighted x78 = new NodeWeighted(0, "0");
         NodeWeighted x19 = new NodeWeighted(0, "0"); NodeWeighted x39 = new NodeWeighted(0, "0"); NodeWeighted x59 = new NodeWeighted(0, "0"); NodeWeighted x79 = new NodeWeighted(0, "0");
 
-        
-        NodeWeighted[] punten = new NodeWeighted[]{ p00, p01, p02, p03, p04, p05, x6, x7, x8, x9, 
-            p10, p11, p12, p13, p14, p15, x16, x17, x18, x19, 
-            p20, p21, p22, p23, p24, p25, x26, x27, x28, x29, 
+        NodeWeighted[] punten = new NodeWeighted[]{ p00, p01, p02, p03, p04, p05, x6, x7, x8, x9, p10, 
+            p11, p12, p13, p14, p15, x16, x17, x18, x19, p20, 
+            p21, p22, p23, p24, p25, x26, x27, x28, x29, 
             p30, p31, p32, p33, p34, p35, x36, x37, x38, x39, 
             p40, p41, p42, p43, p44, p45, x46, x47, x48, x49, 
             p50, p51, p52, p53, p54, p55, x56, x57, x58, x59, 
@@ -59,22 +58,22 @@ public class GraphShow {
             p80, p81, p82, p83, p84, p85, x86, x87, x88, x89, 
             p90, p91, p92, p93, p94, p95}; 
 
-        graphWeighted.addEdge(p00, p20, 2); graphWeighted.addEdge(p01, p00, 1); graphWeighted.addEdge(p02, p01, 1); graphWeighted.addEdge(p03, p02, 1); graphWeighted.addEdge(p04, p03, 1);
-        graphWeighted.addEdge(p20, p00, 2); graphWeighted.addEdge(p01, p02, 1); graphWeighted.addEdge(p02, p12, 1); graphWeighted.addEdge(p03, p13, 1); graphWeighted.addEdge(p04, p05, 1);
-        graphWeighted.addEdge(p20, p21, 1); graphWeighted.addEdge(p01, p11, 1); graphWeighted.addEdge(p02, p03, 1); graphWeighted.addEdge(p03, p04, 1); graphWeighted.addEdge(p24, p23, 1); 
-        graphWeighted.addEdge(p20, p40, 2); graphWeighted.addEdge(p11, p01, 1); graphWeighted.addEdge(p12, p02, 1); graphWeighted.addEdge(p13, p03, 1); graphWeighted.addEdge(p24, p25, 1);
-        graphWeighted.addEdge(p40, p20, 2); graphWeighted.addEdge(p11, p10, 1); graphWeighted.addEdge(p12, p11, 1); graphWeighted.addEdge(p13, p12, 1); graphWeighted.addEdge(p44, p43, 1);
+        graphWeighted.addEdge(p00, p20, 2); graphWeighted.addEdge(p01, p00, 1); graphWeighted.addEdge(p02, p01, 1); graphWeighted.addEdge(p03, p02, 1); graphWeighted.addEdge(p04, p03, 1); graphWeighted.addEdge(p05, p04, 1);
+        graphWeighted.addEdge(p20, p00, 2); graphWeighted.addEdge(p01, p02, 1); graphWeighted.addEdge(p02, p12, 1); graphWeighted.addEdge(p03, p13, 1); graphWeighted.addEdge(p04, p05, 1); graphWeighted.addEdge(p25, p24, 1);
+        graphWeighted.addEdge(p20, p21, 1); graphWeighted.addEdge(p01, p11, 1); graphWeighted.addEdge(p02, p03, 1); graphWeighted.addEdge(p03, p04, 1); graphWeighted.addEdge(p24, p23, 1); graphWeighted.addEdge(p45, p44, 1);
+        graphWeighted.addEdge(p20, p40, 2); graphWeighted.addEdge(p11, p01, 1); graphWeighted.addEdge(p12, p02, 1); graphWeighted.addEdge(p13, p03, 1); graphWeighted.addEdge(p24, p25, 1); graphWeighted.addEdge(p65, p64, 1);
+        graphWeighted.addEdge(p40, p20, 2); graphWeighted.addEdge(p11, p10, 1); graphWeighted.addEdge(p12, p11, 1); graphWeighted.addEdge(p13, p12, 1); graphWeighted.addEdge(p44, p43, 1); graphWeighted.addEdge(p85, p84, 1);
         graphWeighted.addEdge(p40, p41, 1); graphWeighted.addEdge(p11, p21, 1); graphWeighted.addEdge(p12, p22, 1); graphWeighted.addEdge(p13, p23, 1); graphWeighted.addEdge(p44, p45, 1);
         graphWeighted.addEdge(p40, p60, 2); graphWeighted.addEdge(p11, p12, 1); graphWeighted.addEdge(p12, p13, 1); graphWeighted.addEdge(p23, p13, 1); graphWeighted.addEdge(p64, p63, 1);
         graphWeighted.addEdge(p60, p40, 2); graphWeighted.addEdge(p11, p01, 1); graphWeighted.addEdge(p22, p12, 1); graphWeighted.addEdge(p23, p22, 1); graphWeighted.addEdge(p64, p65, 1);
         graphWeighted.addEdge(p60, p61, 1); graphWeighted.addEdge(p21, p11, 1); graphWeighted.addEdge(p22, p21, 1); graphWeighted.addEdge(p23, p43, 2); graphWeighted.addEdge(p84, p83, 1);
         graphWeighted.addEdge(p60, p80, 2); graphWeighted.addEdge(p21, p20, 1); graphWeighted.addEdge(p22, p23, 1); graphWeighted.addEdge(p23, p24, 1); graphWeighted.addEdge(p84, p85, 1);
         graphWeighted.addEdge(p80, p60, 2); graphWeighted.addEdge(p21, p22, 1); graphWeighted.addEdge(p42, p41, 1); graphWeighted.addEdge(p43, p23, 2);
-        graphWeighted.addEdge(p80, p81, 1); graphWeighted.addEdge(p41, p40, 1); graphWeighted.addEdge(p42, p43, 1); graphWeighted.addEdge(p43, p42, 1); graphWeighted.addEdge(p05, p04, 1);
-                                            graphWeighted.addEdge(p41, p42, 1); graphWeighted.addEdge(p62, p61, 1); graphWeighted.addEdge(p43, p63, 2); graphWeighted.addEdge(p25, p24, 1);
-                                            graphWeighted.addEdge(p61, p60, 1); graphWeighted.addEdge(p62, p63, 1); graphWeighted.addEdge(p43, p44, 1); graphWeighted.addEdge(p45, p44, 1);
-                                            graphWeighted.addEdge(p61, p62, 1); graphWeighted.addEdge(p82, p81, 1); graphWeighted.addEdge(p63, p43, 2); graphWeighted.addEdge(p65, p64, 1);
-                                            graphWeighted.addEdge(p81, p80, 1); graphWeighted.addEdge(p82, p83, 1); graphWeighted.addEdge(p63, p62, 1); graphWeighted.addEdge(p85, p84, 1);
+        graphWeighted.addEdge(p80, p81, 1); graphWeighted.addEdge(p41, p40, 1); graphWeighted.addEdge(p42, p43, 1); graphWeighted.addEdge(p43, p42, 1);
+                                            graphWeighted.addEdge(p41, p42, 1); graphWeighted.addEdge(p62, p61, 1); graphWeighted.addEdge(p43, p63, 2);
+                                            graphWeighted.addEdge(p61, p60, 1); graphWeighted.addEdge(p62, p63, 1); graphWeighted.addEdge(p43, p44, 1);
+                                            graphWeighted.addEdge(p61, p62, 1); graphWeighted.addEdge(p82, p81, 1); graphWeighted.addEdge(p63, p43, 2);
+                                            graphWeighted.addEdge(p81, p80, 1); graphWeighted.addEdge(p82, p83, 1); graphWeighted.addEdge(p63, p62, 1);
                                             graphWeighted.addEdge(p81, p82, 1);                                     graphWeighted.addEdge(p63, p83, 2);
                                                                                                                     graphWeighted.addEdge(p63, p64, 1);
                                                                                                                     graphWeighted.addEdge(p83, p63, 2);

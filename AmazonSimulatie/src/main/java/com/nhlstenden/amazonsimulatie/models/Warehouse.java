@@ -23,27 +23,53 @@ class Warehouse implements Object3D, Updatable {
         this.uuid = UUID.randomUUID();
         availableStellagePositions = "14 15 31 32 34 35 51 52 54 55 71 72 74 75 91 92 94 95 ";
         unavailableStellagePositions = "";
+    }    
+    @Override
+    public boolean update() {
+        return true;
     }
-
-    
     @Override
-    public boolean update() { return true; }
+    public String getUUID() {
+        return this.uuid.toString();
+    }
+    public String getAvailableStellagePositions(){
+        return this.availableStellagePositions; 
+    }
+    public String getUnavailableStellagePositions(){
+        return this.unavailableStellagePositions; 
+    }
     @Override
-    public String getUUID() { return this.uuid.toString(); }
-    public String getAvailableStellagePositions() { return this.availableStellagePositions; }
-    public String getUnavailableStellagePositions() { return this.unavailableStellagePositions; }
+    public String getType() {
+        /*
+         * Dit onderdeel wordt gebruikt om het type van dit object als stringwaarde terug
+         * te kunnen geven. Het moet een stringwaarde zijn omdat deze informatie nodig
+         * is op de client, en die verstuurd moet kunnen worden naar de browser. In de
+         * javascript code wordt dit dan weer verder afgehandeld.
+         */
+        return Warehouse.class.getSimpleName().toLowerCase();
+    }
     @Override
-    public String getType() { return Warehouse.class.getSimpleName().toLowerCase(); }
+    public double getX() {
+        return this.x;
+    }
     @Override
-    public double getX() { return this.x; }
+    public double getY() {
+        return this.y;
+    }
     @Override
-    public double getY() { return this.y; }
+    public double getZ() {
+        return this.z;
+    }
     @Override
-    public double getZ() { return this.z; }
+    public double getRotationX() {
+        return this.rotationX;
+    }
     @Override
-    public double getRotationX() { return this.rotationX; }
+    public double getRotationY() {
+        return this.rotationY;
+    }
     @Override
-    public double getRotationY() { return this.rotationY; }
-    @Override
-    public double getRotationZ() { return this.rotationZ; }
+    public double getRotationZ() {
+        return this.rotationZ;
+    }
 }
