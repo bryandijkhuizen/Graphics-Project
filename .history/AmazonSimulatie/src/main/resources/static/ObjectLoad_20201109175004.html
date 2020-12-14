@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>SimulationView</title>
+  </head>
+  <body>
+    <script type="module">
+        import * as THREE from "./three.js-master/build/three.module.js";
+        import { GLTFLoader } from "./three.js-master/examples/jsm/loaders/GLTFLoader.js";
+
+        let gltfLoader = new GLTFLoader();
+        
+        function addStellageObject(){
+        worldObjects[command.parameters.uuid] = null;
+            gltfLoader.load('./gltf/Stellage.glb', function ( gltf ) {
+                let stellage = gltf.scene; 
+                let group = new THREE.Group();
+                group.add(stellage); 
+
+                scene.add(group);
+                worldObjects[command.parameters.uuid] = group;
+            });
+        }
+        
+    </script>
+  </body>
+</html>
