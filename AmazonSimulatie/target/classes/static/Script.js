@@ -3,6 +3,9 @@ import { GLTFLoader } from "./three.js-master/examples/jsm/loaders/GLTFLoader.js
 import { OrbitControls } from "./three.js-master/examples/jsm/controls/OrbitControls.js";
 import robotCreator from "./RobotCreator.js";
 import robotMaterials from "./RobotMaterials.js";
+import createStellage from "./Stellage.js";
+import createWarehouse from "./Warehouse.js";
+import createTruck from "./Truck.js";
 
 let gltfLoader = new GLTFLoader();
 let socket;
@@ -72,46 +75,15 @@ window.onload = function () {
                 }
                 if (command.parameters.type == "stellage") {
                     worldObjects[command.parameters.uuid] = null;
-                    gltfLoader.load("./gltf/Stellage.glb", function (gltf) {
-                        let stellage = gltf.scene;
-                        let group = new THREE.Group();
-                        group.add(stellage);
-                        scene.add(group);
-                        worldObjects[command.parameters.uuid] = group;
-                    });
+                    createStellage(worldObjects, scene, gltfLoader, command);
                 }
                 if (command.parameters.type == "warehouse") {
                     worldObjects[command.parameters.uuid] = null;
-                    gltfLoader.load("./gltf/warehouse2.glb", function (gltf) {
-                        let warehouse = gltf.scene;
-                        warehouse.scale.x = 1.666;
-                        warehouse.scale.y = 1.4;
-                        warehouse.scale.z = 1.2;
-                        warehouse.position.x = 37;
-                        warehouse.position.z = 26.5;
-                        warehouse.rotation.y = 3.15;
-                        let group = new THREE.Group();
-                        group.add(warehouse);
-                        scene.add(group);
-                        worldObjects[command.parameters.uuid] = group;
-                    });
+                    createWarehouse(worldObjects, scene, gltfLoader, command);
                 }
                 if (command.parameters.type == "truck") {
                     worldObjects[command.parameters.uuid] = null;
-                    gltfLoader.load("./gltf/Truck.glb", function (gltf) {
-                        let truck = gltf.scene;
-                        truck.scale.x = 100;
-                        truck.scale.y = 100;
-                        truck.scale.z = 100;
-                        truck.position.x = -43.7;
-                        truck.position.y = -1.71;
-                        truck.position.z = 9.22;
-                        truck.rotation.y = 3.16;
-                        let group = new THREE.Group();
-                        group.add(truck);
-                        scene.add(group);
-                        worldObjects[command.parameters.uuid] = group;
-                    });
+                    createTruck(worldObjects, scene, gltfLoader, command);
                 }
             }
             var object = worldObjects[command.parameters.uuid];
